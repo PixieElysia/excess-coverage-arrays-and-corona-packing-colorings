@@ -1,39 +1,42 @@
-# Reproducibility audit for version 0.2
+# Reproducibility audit for the v0.3 revision draft
 
-The packaged proofs were rebuilt from a fresh source copy on x86-64 Linux, using Python 3.12.14 and the official Lean 4.19.0 release at commit `6caaee842e94`. This edition revises manuscript exposition and repository presentation. Its formal proof sources are unchanged from the previous verified release, commit `00065dbcf77cbcbbee113072dff0d9c9371eb0e4`.
+## Evidence and scope
 
-## Verification summary
+The proof baseline is commit `5e788f90d91cf7cd0f8a50bfad6f1db6ffc55db2`. The [baseline verifier](research/audit/proof_baseline.py) derives SHA-256 digests and the protected manuscript excerpts directly from that Git object, then compares the current files. The source, certificates, and historical logs from v0.2 have their original bytes. See the [revision audit](REVISION_AUDIT.md) for final statuses and the [run record](research/audit/logs/v03-local/run.json) for the detached source commit, environment, executed commands, statuses and individual exit codes.
 
-| Check | Observed result | Evidence |
-| --- | --- | --- |
-| Array arithmetic and Lean build | The strength-18 witness has 37 positive entries, minimum 350847, total 121645100408832000 rows and all 19 target marginals. Small witnesses and the rounded cases through strength 22 pass. The all-strength theorem builds. | [Log](excess-arrays/verification.log) · [CSV](excess-arrays/results.csv) |
-| Transfer-state graph verification | The six-color path frontier is empty after 12 columns. The seven-color transfer graph has 2999 reachable states and 11778 directed arcs. No state starts a closed walk of length 13. All five loops, 25 ordered block pairs, and the eight-color witness pass. | [Log](packing-corona/verification.log) · [Verifier](packing-corona/verify.py) |
-| Independent graph search | The six-color path and seven-color cycle obstructions are reproduced after 10,221 and 162,103 search nodes, respectively. The path of order 11 with six colors and the cycle of order 13 with eight colors yield witnesses. | [Log](packing-corona/verification.log) · [CSV](packing-corona/results.csv) |
-| Graph Lean build | Two exact formulas hold for every base order at least 12, where the coloring condition is stated on walks in the edge-defined graph. | [Final theorems](packing-corona/lean/EdgeColors.lean) |
-| Manuscript build | Both PDFs are generated from the corresponding LaTeX sources. | [Array source](excess-arrays/paper.tex) · [Graph source](packing-corona/paper.tex) |
-
-The finite computations use standard-library Python only. The tables contain finite verification results. The general mathematical conclusions follow from the manuscript arguments and their stated formalizations.
-
-## Lean theorem dependencies
-
-| Public statement | Dependencies reported by Lean |
+| Reproduction area | Verification route |
 | --- | --- |
-| `Excess.equation_three_18` | None |
-| `Excess.exists_binary_excess_array_18` | `propext`, `Quot.sound` |
-| `Excess.exists_symmetric_binary_excess_array` | `propext`, `Classical.choice`, `Quot.sound` |
-| `CoronaUpper.path_exact_on_edges`, `CoronaUpper.cycle_exact_on_edges` | `propext`, `Classical.choice`, `Quot.sound`, `Lean.ofReduceBool` |
+| Array arithmetic | Original verifier plus a separate exact-integer strength-18 calculation with all 19 residuals and stored small witnesses |
+| Packing colorings | Original transfer and vertex searches, two explicit-edge BFS checks, and a separate verification of the weighted path certificate and cycle equality case |
+| Negative controls | Temporary modifications in each data type, with rejection required. A graph positive control replaces the SAT assignment and node-count metadata. |
+| Lean | Two clean Lake builds on the official 4.19.0 distribution and a separate temporary importing file for the five transitive axiom sets |
+| Manuscripts | GFM data and link checks, original LaTeX build, Chinese XeLaTeX build, extraction comparison with the archived PDFs, and recorded visual inspection |
+| Release integrity | SHA-256 manifest excluding itself and temporary files. The protected-baseline JSON records different hashes tied to the original Git object. |
 
-The last two theorems use Lean 4.19's `bv_decide` for the two finite obstructions. The tactic invokes a SAT solver and checks its LRAT certificate with the standard library's verified checker. In this toolchain the replay uses `Lean.ofReduceBool`, so the Lean compiler is part of the trusted base. The independently implemented Python search reaches the same finite conclusions. The projects contain no admitted proofs or added axioms. The array manuscript's asymptotic width theorem has a written proof and is outside the formalized statements.
+Expected transitive axioms and the compiler-backed LRAT verification are documented in the [trust model](research/TRUST_MODEL.md). The written proofs can be followed using the formulas and numerical tables printed in the articles. The graph lower bounds in the manuscripts use a distinct integer argument; the original transfer checks and Lean proofs remain independently reproducible. There is no archived standalone LRAT/CNF file.
 
-## Commands
+The old [array verification log](excess-arrays/verification.log) and [graph verification log](packing-corona/verification.log) record the v0.2 verification. The v0.3 local results and the hosted workflow runs can be inspected separately. [Local verification logs](research/audit/logs/v03-local) · [GitHub Actions](https://github.com/PixieElysia/excess-coverage-arrays-and-corona-packing-colorings/actions/workflows/verification.yml?query=branch%3Aresearch%2Fbilingual-v0.3)
 
-From the repository root, with the pinned Lean toolchain available on the path, run
+## Clean run
+
+Use a Git checkout containing the baseline commit, Python 3.10 or later, Lean and Lake 4.19.0, latexmk, pdfLaTeX, XeLaTeX, Pandoc, Poppler and the Noto Serif CJK SC and Noto Sans Mono CJK SC fonts. On Linux x86-64, the [Lean installer](research/audit/install_lean.sh) downloads the official release archive and verifies the pinned digest. Pass a path to the pinned executables if they are outside PATH.
 
 ```sh
-./verify.sh arrays
-./verify.sh graphs
-python3 -B research/collect_results.py --check
-sha256sum -c SHA256SUMS
+python3 -B research/audit/run_revision.py --revision HEAD \
+  --lean-bin /path/to/lean-4.19.0/bin --logs /tmp/revision-audit
 ```
 
-To regenerate the CSV files, run the Python command without `--check`. To regenerate the PDFs, run `latexmk -pdf -interaction=nonstopmode -halt-on-error paper.tex` inside each study directory. The checksum manifest covers the distributed bytes, including the archived verification logs and PDFs. Fresh logs and rebuilt PDFs may contain different build metadata.
+The log directory must be empty. The runner creates a fresh detached worktree and persists results after each check. It records exit codes and stops on a failed command. The worktree and partial logs remain available for diagnosis. Direct `lake build` commands run before either original driver, so any later reuse by `verify.sh` follows a documented clean build.
+
+Use `git clone --branch research/bilingual-v0.3 https://github.com/PixieElysia/excess-coverage-arrays-and-corona-packing-colorings.git` to obtain the published files and the baseline history needed by the verifier.
+
+To rebuild the four PDFs locally, use the two commands below for each project. Supply a destination outside the tracked source.
+
+```sh
+bash research/audit/build_paper.sh excess-arrays /tmp/arrays-en
+bash research/audit/build_chinese_paper.sh excess-arrays /tmp/arrays-zh
+bash research/audit/build_paper.sh packing-corona /tmp/graphs-en
+bash research/audit/build_chinese_paper.sh packing-corona /tmp/graphs-zh
+```
+
+Current binaries are fingerprinted in [SHA256SUMS](SHA256SUMS). The revision checks extracted PDF text against a local recompilation. Time metadata, PDF engine and fonts can change PDF bytes in other environments. The Chinese source for rebuilding is the corresponding Markdown file and the small Pandoc layout filter.

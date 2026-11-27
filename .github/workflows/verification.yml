@@ -1,0 +1,136 @@
+name: Research verification
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  computational-checks:
+    name: ${{ matrix.check }}
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        check: [proof-baseline, array-certificate, graph-certificates, published-results]
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.12'
+      - name: Check source and data
+        shell: bash
+        env:
+          CHECK: ${{ matrix.check }}
+        run: |
+          {
+            git rev-parse HEAD
+            uname -sm
+            python3 --version
+            printf '%s\n' "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            case "$CHECK" in
+              proof-baseline)
+                python3 -B research/audit/proof_baseline.py
+                sha256sum -c SHA256SUMS
+                ;;
+              array-certificate)
+                python3 -B research/audit/verify_t18.py --check
+                python3 -B excess-arrays/verify.py excess-arrays/small.json excess-arrays/t18.json
+                ;;
+              graph-certificates)
+                python3 -B research/audit/verify_graph_semantics.py --check
+                python3 -B packing-corona/verify.py
+                python3 -B research/audit/verify_written_obstructions.py
+                ;;
+              published-results)
+                python3 -B research/collect_results.py --check
+                python3 -B research/audit/test_negative_controls.py
+                ;;
+            esac
+          } 2>&1 | tee verification.log
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: always()
+        with:
+          name: ${{ matrix.check }}
+          path: verification.log
+
+  clean-lean:
+    name: Lean 4.19 / ${{ matrix.project }}
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [excess-arrays, packing-corona]
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.12'
+      - name: Install Lean, build, and audit final declarations
+        shell: bash
+        env:
+          PROJECT: ${{ matrix.project }}
+        run: |
+          {
+            git rev-parse HEAD
+            uname -sm
+            python3 --version
+            printf '%s\n' "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            bash research/audit/install_lean.sh "$RUNNER_TEMP/lean419"
+            export PATH="$RUNNER_TEMP/lean419/bin:$PATH"
+            test ! -e "$PROJECT/lean/.lake"
+            (cd "$PROJECT/lean" && lake build)
+            python3 -B research/audit/audit_lean.py --root "$GITHUB_WORKSPACE" --project "$PROJECT"
+          } 2>&1 | tee verification.log
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: always()
+        with:
+          name: lean-${{ matrix.project }}
+          path: verification.log
+
+  latex:
+    name: LaTeX / ${{ matrix.project }}
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [excess-arrays, packing-corona]
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Install TeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y latexmk texlive-latex-extra texlive-xetex lmodern fonts-noto-cjk pandoc poppler-utils
+      - name: Build and inspect LaTeX diagnostics
+        shell: bash
+        env:
+          PROJECT: ${{ matrix.project }}
+        run: |
+          {
+            git rev-parse HEAD
+            uname -sm
+            latexmk --version
+            pdflatex --version
+            printf '%s\n' "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            bash research/audit/build_paper.sh "$PROJECT" "$RUNNER_TEMP/manuscript/en"
+            bash research/audit/build_chinese_paper.sh "$PROJECT" "$RUNNER_TEMP/manuscript/zh"
+          } 2>&1 | tee verification.log
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: always()
+        with:
+          name: latex-${{ matrix.project }}
+          path: |
+            verification.log
+            ${{ runner.temp }}/manuscript/en/paper.pdf
+            ${{ runner.temp }}/manuscript/en/paper.log
+            ${{ runner.temp }}/manuscript/zh/paper.zh-CN.pdf
+            ${{ runner.temp }}/manuscript/zh/paper.zh-CN.log

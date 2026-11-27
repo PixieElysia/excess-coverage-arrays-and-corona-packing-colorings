@@ -10,3 +10,4 @@ __pycache__/
 !excess-arrays/verification.log
 !packing-corona/verification.log
 *.out
+!research/audit/logs/**/*.log

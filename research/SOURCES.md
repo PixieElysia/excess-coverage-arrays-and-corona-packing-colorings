@@ -19,3 +19,7 @@
 ## 复核
 
 上海时间 2026 年 11 月 27 日 00:45 起，按原论文发表后的日期范围再次检索两组确切参数、英美拼写、作者姓氏以及 `correction`、`construction`、`solution` 等词。返回结果中未发现处理这两项结论的新论文或勘误。直接读取 Springer 网页，确认 `Equ3` 锚点及其后的计算判断仍在。预印本对应锚点为 `S5.E3`。再次查询 Crossref 更新与 OpenAlex 引用数，均为 0。图论论文的原始 PDF 可打开，所列公开问题位于 PDF 第 14 页。[期刊式 (3)](https://link.springer.com/article/10.1007/s10623-025-01722-9#Equ3) · [预印本式 (3)](https://arxiv.org/html/2411.17145v1#S5.E3) · [图论原文](https://dergipark.org.tr/en/download/article-file/5580259#page=14)
+
+## v0.3 revision
+
+The revised source work records separately the journal and preprint theorem numbering for the array paper, the published Chee et al. projection, the exact earlier graph upper-bound exceptions, and limits on access to three classical balanced-array texts. Use the literature matrices for the current comparison. [Article and prior-art matrices](LITERATURE_MATRIX.md)

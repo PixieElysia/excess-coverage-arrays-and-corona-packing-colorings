@@ -1,0 +1,6 @@
+$ python3 -B -  # check pdftotext -bbox-layout for all packaged PDFs
+excess-arrays/paper.pdf: 9 pages, 4311 extracted word boxes within page bounds, 24 XML control characters filtered
+excess-arrays/paper.zh-CN.pdf: 7 pages, 2402 extracted word boxes within page bounds, 0 XML control characters filtered
+packing-corona/paper.pdf: 10 pages, 5352 extracted word boxes within page bounds, 1 XML control characters filtered
+packing-corona/paper.zh-CN.pdf: 6 pages, 1868 extracted word boxes within page bounds, 0 XML control characters filtered
+exit code: 0

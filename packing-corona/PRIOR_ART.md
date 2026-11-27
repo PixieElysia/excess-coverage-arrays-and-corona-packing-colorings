@@ -23,3 +23,7 @@ Furmańczyk, Gözüpek and Özkan define path-aligned graph products. Their cliq
 The documented search on 26–27 November 2026 Shanghai time used the authors’ names, the paper’s complete title, exact graph parameters, and variants of *packing coloring*, *packing colouring* and *chain of triangles*. The search retrieved the original paper and related graph families. No prior proof of either exact formula was located in the material examined. The journal source and its page-107 questions were verified directly. [Search record](../research/SOURCES.md) · [OpenAlex record](https://openalex.org/W7127745577)
 
 The manuscript is an AI-assisted research draft. Two independent Python programs reproduce the finite obstructions, and the Lean project gives the complete classification. The verification record identifies the certificate checker and its trust dependencies. Independent human review and author attribution remain pending. [Manuscript](paper.pdf) · [Verification record](../research/VERIFICATION.md)
+
+## Revision cross-check
+
+The full-text recheck confirms the exception set in Theorem 3.1 and attributes the particular eight-color word to its authors. The path-aligned preprint's Section 3.2.1 asks boundedness in the single-backbone-vertex case. The 2026 target paper already bounded the triangle case, whose exact eventual value is given here. The added written lower-bound arguments handle the same finite instances as the preserved transfer proof. [Detailed primary-source comparison](../research/GRAPH_LITERATURE.md)

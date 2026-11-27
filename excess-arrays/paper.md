@@ -2,15 +2,17 @@
 
 **Exact existence and asymptotic width under column symmetry**
 
-**Research preprint v0.2 · 27 November 2026**
+**Research preprint · revision draft for version 0.3 · 27 November 2026**
 
-AI-assisted research manuscript. Author attribution pending human review.
+**CHATGPT ASTRA 6.2** · AI display byline
 
-[Manuscript PDF](paper.pdf) · [LaTeX source](paper.tex) · [Reproducibility audit](../REPRODUCIBILITY_AUDIT.md)
+Human authorship and submission responsibility remain pending.
+
+[Manuscript PDF](paper.pdf) · [LaTeX source](paper.tex) · [中文版](paper.zh-CN.md) · [中文 PDF](paper.zh-CN.pdf) · [Reproducibility audit](../REPRODUCIBILITY_AUDIT.md)
 
 ## Abstract
 
-Gentle, Horsley and Wanless (2025, Section 5) reported that a system of binomial equations for column-symmetric binary excess coverage arrays has no nonnegative integer solution at strength $18$ and width $36$. We give a strictly positive solution. All $37$ multiplicities are explicit, with minimum $350{,}847$. More generally, every positive strength $t$ admits a column-symmetric array with $2t$ columns and the minimum possible number of rows, $(t+1)!$. The construction rounds intersection counts and uses inclusion–exclusion to recover the row multiplicities. Exact certificates cover the remaining small strengths. For the largest achievable width under column symmetry we prove the asymptotic formula $(1+o(1))\log_2((t+1)!)$. Lean 4.19 verifies the strength-$18$ certificate and the existence theorem for all positive strengths. The asymptotic formula is proved mathematically in the text. [Original paper, Section 5](https://link.springer.com/article/10.1007/s10623-025-01722-9#Sec5)
+Gentle, Horsley and Wanless (2025, Section 5, equation (3)) reported infeasibility of their column-symmetric integer system at strength $18$. We give a strictly positive solution to all $19$ equations, establishing the existence of a binary excess coverage array with $36$ columns and $19!$ rows. More generally, every positive integer strength $t$ admits a column-symmetric array with $2t$ columns and the minimum row count $(t+1)!$. Within the column-permutation-invariant class, we also determine the asymptotic maximum width as $(1+o(1))\log_2((t+1)!)$. Lean 4.19.0 verifies the strength-$18$ certificate and the all-strength existence theorem. The width asymptotic has a separate written proof and remains outside the Lean development. The array results address the specific binary nonexistence obstruction discussed in Section 5. The revised Levenshtein conjecture remains outside their scope. [Journal equation (3)](https://link.springer.com/article/10.1007/s10623-025-01722-9#Equ3)
 
 ## 1. Problem and main results
 
@@ -43,7 +45,56 @@ Let $K_{\mathrm{sym}}(t)$ denote the maximum width of a column-symmetric array w
 
 As $t\to\infty$, $K_{\mathrm{sym}}(t)\sim\log_2((t+1)!)\sim t\log_2 t$.
 
+### Background and relation to sequence covering arrays
+
+A sequence covering array $\operatorname{SCA}(M;s,v)$ consists of $M$ permutations of $v$ symbols such that each ordered selection of $s$ distinct symbols occurs as a subsequence of at least one permutation. Here $s$ is sequence covering strength, while $t$ is binary excess coverage strength. The revised Levenshtein conjecture states that for $s\ge5$ and $v\ge s$, an $\operatorname{SCA}(s!;s,v)$ exists exactly when $v=s$ or $v=s+1$. The earlier conjecture included strength $4$, where Mathon and Tran Van Trung found an $\operatorname{SCA}(24;4,6)$. [Gentle, Horsley and Wanless, Section 1](https://arxiv.org/html/2411.17145v1#S1) · [Mathon and Tran van Trung](#ref-mathon)
+
+Gentle, Horsley and Wanless form a binary row by fixing one symbol in a permutation and marking whether each other symbol lies before or after it. Their Section 5 uses the parameter shift $s=t+1$ and $v=2t+1$ and the implication
+
+$$
+\operatorname{SCA}((t+1)!;t+1,2t+1)\text{ exists}
+\quad\Longrightarrow\quad
+\mathsf{CA}_X((t+1)!;t,2t,2)\text{ exists}.
+$$
+
+The construction appears in Construction 4 and Lemma 5 of the journal paper. The corresponding preprint labels are Construction 3 and Lemma 4. [Journal Section 2](https://link.springer.com/article/10.1007/s10623-025-01722-9#FPar4) · [Preprint Section 2](https://arxiv.org/html/2411.17145v1#S2)
+
+[Theorem 1](#theorem-1) establishes the right-hand condition for every positive $t$. Hence absence of that binary array cannot supply the proposed exclusion of the sequence covering array. The reverse implication and conditions relating several derived arrays or different alphabet sizes are separate questions. The journal article's main result excluding $\operatorname{SCA}(7!;7,10)$ is distinct from its strength-$18$ computation. The case $\operatorname{SCA}(7!;7,9)$ and the full revised conjecture remain outside the results here. [Journal equation (3)](https://link.springer.com/article/10.1007/s10623-025-01722-9#Equ3) · [Preprint v1 equation (3)](https://arxiv.org/html/2411.17145v1#S5.E3)
+
+### Notation and array semantics
+
+| Symbol | Meaning |
+| --- | --- |
+| $t$ | Strength of the binary excess coverage array |
+| $k$ | Number of columns |
+| $N$ | Number of rows counted with multiplicity |
+| $a$ | Number of ones in one prescribed pattern |
+| $i$ | Number of ones in a complete row |
+| $x_i$ | Multiplicity of each individual word of weight $i$ |
+| $y_j$ | Number of rows containing ones in a fixed set of $j$ positions |
+| $K_{\mathrm{sym}}(t)$ | Maximum width at strength $t$ and row count $(t+1)!$ under column-permutation symmetry |
+
+Rows form a multiset and can repeat. A column permutation preserves the multiset as a whole. It may carry an individual word to a different word with the same weight. The entire weight-$i$ layer contains $\binom{k}{i}x_i$ rows, and $N=\sum_{i=0}^{k}\binom{k}{i}x_i$. Summing the margins in [(1)](#equation-1) over all prescriptions on any fixed $t$ coordinates counts every complete row once and gives the same total.
+
+Global exchange of zeros and ones would impose the additional equations $x_i=x_{k-i}$. The strength-$18$ certificate has unequal entries $x_0$ and $x_{36}$, as column-permutation symmetry permits.
+
+At row count $(t+1)!$ the paper's $\mathsf{CA}_X$ condition reduces to the exact margins in [(1)](#equation-1). Lean's [ExactBinaryArray](lean/Certificate.lean) encodes that row count and those exact prescribed-pattern multiplicities. The symbol $\mathsf{CAN}_X(t,2t,2)$ denotes the minimum row count at the given strength, width, and alphabet. The maximum width at fixed row count is the separate quantity $K_{\mathrm{sym}}(t)$.
+
 ## 2. Rounding intersection counts
+
+### Reading guide for the existence proof
+
+Start with the real intersection counts $y_j^*=N/(j+1)$ and ideal row multiplicities $x_i^*=N/((k+1)\binom{k}{i})$. For $j\le t$, the divisor $j+1$ divides $N=(t+1)!$, so rounding preserves precisely the intersection counts used to compute a prescribed $t$-column margin. Inclusion–exclusion recovers integer $x_i$ and preserves those margins. A separate argument establishes nonnegativity, which the $x_i$ need to represent row multiplicities.
+
+| Strength | Source of nonnegative integer multiplicities |
+| --- | --- |
+| $1\le t\le16$ | Explicit certificates in [small.json](small.json) |
+| $17\le t\le21$ | Finite certificates from the rounding construction |
+| $t\ge22$ | General bound on the rounding error |
+
+The inequality in the proof supplies a sufficient threshold at $22$. The successful finite rounding cases already include strengths $17$ through $21$. In [construct.py](construct.py), the quotient and remainder of $N$ by $j+1$ determine rounding to nearest, with an exact tie rounded to even. Lean's [Inversion.nearestQuotient](lean/Inversion.lean) uses the same quotient–remainder criterion for the nonnegative numerator and positive divisor used here.
+
+The stored $t=2$ certificate is $(2,0,0,1,0)$. It represents two copies of $0000$ and one copy of each of $0111$, $1011$, $1101$, and $1110$. On any two columns a prescribed $11$ pattern has count $x_2+2x_3+x_4=2=2!0!$. The other prescribed patterns $00$, $01$, and $10$ have counts $2$, $1$, and $1$. The row count is $6=3!$.
 
 Write $\left\lfloor z\right\rceil$ for a nearest integer to $z$, taking the even integer at a tie. Define
 
@@ -82,6 +133,18 @@ The lower bound on the number of rows is attained, so $\mathsf{CAN}_X(t,2t,2)=(t
 ## 3. Maximum width under column symmetry
 
 Throughout this section $N=(t+1)!$. We use the convention $\binom{n}{r}=0$ when $n\ge0$ and $r\notin\{0,\ldots,n\}$.
+
+The precise limit in [Theorem 2](#theorem-2) is
+
+$$
+\lim_{t\to\infty}\frac{K_{\mathrm{sym}}(t)}{\log_2((t+1)!)}=1.
+$$
+
+Stirling's formula gives $\log_2((t+1)!)\sim t\log_2 t$. At strength $1$, the length-$k$ all-zero word and all-one word give a column-symmetric minimum-size array at every width $k\ge1$. The finite maximum is therefore defined here from strength $2$ onward.
+
+### Reading guide for the width proof
+
+The lower bound uses an integer basis of the kernel to move from a real ideal solution to a nearby integer solution. Check the dimension, linear independence, and coordinatewise rounding error, including the Vandermonde identity. The condition in [Lemma 4](#lemma-4) is sufficient for nonnegativity. For the upper bound, column symmetry turns one occupied weight into an entire layer of distinct words. Check the conditional distribution for a uniformly chosen row, the uniformity of the bound over $k\ge t$, fixed-strength finiteness, and the Stirling estimates. The asymptotic estimates remain outside the current Lean development.
 
 ### Lemma 4
 
@@ -152,6 +215,31 @@ python3 verify.py /tmp/excess-t18.json
 
 The strength-$18$ check reports $19$ validated equations and row total $121{,}645{,}100{,}408{,}832{,}000$. To regenerate the other rounded cases, use [construct.py](construct.py) with the strength as its sole argument. The width defaults to twice the strength. The finite output is in [results.csv](results.csv) and the build and computation record is in [verification.log](verification.log). The repository also includes a [SHA-256 manifest](../SHA256SUMS).
 
+
+### Correction of the strength-18 computation
+
+The journal reports that equation (3) has no nonnegative integer solution at strength $18$ in its symmetric system. The vector in [Appendix A](#a-the-strength-18-certificate) gives a positive solution to that precise system. All 37 entries are positive, the minimum is $350{,}847$, and their layer-weighted sum is $121{,}645{,}100{,}408{,}832{,}000=19!$. The [residual table](../research/audit/outputs/t18-residuals.csv) gives the two integer sides and the zero residual for each prescribed weight $a=0,\ldots,18$. The mathematical check requires only the printed vector and the binomial coefficients. The [independent checker](../research/audit/verify_t18.py) repeats it using the original JSON, whose SHA-256 is `3a47a3097137861a846d3bc62b72240cc96e6190831a978f4fd5cfd563cd6986`. [Original equation (3)](https://link.springer.com/article/10.1007/s10623-025-01722-9#Equ3)
+
+From the repository root the check can also be performed as follows.
+
+```python
+import json
+from math import comb, factorial
+from pathlib import Path
+
+d = json.loads(Path("excess-arrays/t18.json").read_text(encoding="utf-8"))
+x = d["multiplicities"]
+assert (d["strength"], d["columns"]) == (18, 36)
+assert len(x) == 37 and all(type(v) is int and v > 0 for v in x)
+assert min(x) == 350847
+for a in range(19):
+    lhs = sum(comb(18, j) * x[a+j] for j in range(19))
+    rhs = factorial(a) * factorial(18-a)
+    assert lhs == rhs
+    print(a, lhs, rhs, lhs-rhs)
+assert sum(comb(36, i) * v for i, v in enumerate(x)) == factorial(19)
+```
+
 ## 5. Machine-checked proof
 
 The Lean model represents an array by a function from binary words to natural-number multiplicities. It enumerates the compatible binary words for each partial pattern and proves that the enumeration has no duplicates. The total mass of all width-$k$ words is checked separately. The existence statement quantifies over each pattern of length $k$ with precisely $k-t$ unspecified positions.
@@ -174,6 +262,17 @@ Longyear, Shirakura and Kuriki study general existence criteria and construction
 
 The repository's literature comparison records the journal and preprint versions, searches for corrections, and searches under both excess coverage and balanced-array terminology. Those public searches identified neither a correction for the strength-$18$ system nor a prior proof of the symmetric width formula. Priority remains subject to sources outside the search coverage. This preprint and its artifacts were prepared with substantial AI assistance in discovery, proof development, formalization, verification and writing. Author attribution and independent human review are pending. [Literature comparison](PRIOR_ART.md)
 
+### Scope of the results
+
+| Statement | Evidence in this paper |
+| --- | --- |
+| Equation (3) is feasible at strength 18 | Explicit integer certificate and Lean audit |
+| Minimum-row width $2t$ exists for every positive strength | Written proof with explicit finite inputs, also formalized in Lean |
+| Maximum symmetric width is asymptotic to $\log_2((t+1)!)$ | Written proof |
+| Exact finite maximum width at arbitrary strength | Outside the results |
+| Maximum width without column symmetry | Outside the results |
+| The revised Levenshtein conjecture | Outside the results |
+
 ## A. The strength-18 certificate
 
 For each weight $i$, include $x_i$ copies of every binary word of length $36$ and weight $i$. The same vector is supplied in [t18.json](t18.json).
@@ -193,6 +292,53 @@ For each weight $i$, include $x_i$ copies of every binary word of length $36$ an
 | 10 | 10767879 | 23 | 1422819 | 36 | 3287705416454919 |
 | 11 | 6580331 | 24 | 2626677 |  |  |
 | 12 | 2062333 | 25 | 5472117 |  |  |
+
+
+## B. The finite arithmetic in the all-strength proof
+
+The following vectors are the printed certificates for $1\le t\le16$. Entries are in order of increasing weight and the width is $2t$. The same vectors appear in [small.json](small.json).
+
+```text
+t= 1: 1, 0, 1
+t= 2: 2, 0, 0, 1, 0
+t= 3: 0, 2, 0, 0, 0, 2, 0
+t= 4: 4, 5, 0, 0, 0, 1, 0, 0, 20
+t= 5: 60, 9, 1, 0, 1, 0, 0, 1, 2, 3, 75
+t= 6: 384, 35, 4, 3, 0, 1, 0, 1, 0, 3, 4, 35, 384
+t= 7: 2660, 207, 22, 11, 1, 2, 1, 0, 2, 1, 0, 17, 7, 236, 2611
+t= 8: 21404, 1307, 188, 36, 11, 6, 2, 2, 2, 1, 4, 4, 9, 52, 138, 1426,
+      21160
+t= 9: 190751, 10687, 1238, 225, 72, 17, 12, 6, 4, 4, 5, 4, 15, 12, 85,
+      183, 1365, 10349, 191552
+t=10: 1901427, 94793, 10075, 1664, 379, 134, 43, 27, 14, 12, 10, 11, 16,
+      23, 52, 116, 405, 1651, 10005, 95114, 1900513
+t=11: 20823663, 947618, 89827, 13613, 2831, 791, 280, 122, 65, 42, 32, 30,
+      31, 45, 57, 143, 227, 914, 2577, 14067, 89159, 948299, 20823718
+t=12: 249082448, 10377396, 903011, 122785, 23567, 5813, 1862, 721, 335,
+      193, 126, 100, 92, 100, 127, 190, 338, 730, 1805, 6003, 23069,
+      123919, 900668, 10381895, 249074297
+t=13: 3228809222, 124193097, 9931612, 1243160, 215492, 49245, 13980, 4917,
+      2067, 1032, 609, 417, 335, 310, 335, 416, 612, 1027, 2074, 4902,
+      14030, 49083, 215942, 1242071, 9933977, 124188378, 3228818023
+t=14: 45092220022, 1610439292, 119288784, 13766272, 2201311, 459256,
+      119533, 38122, 14507, 6523, 3440, 2098, 1483, 1204, 1124, 1205,
+      1480, 2106, 3420, 6568, 14419, 38268, 119331, 459496, 2200981,
+      13767153, 119285548, 1610450186, 45092188223
+t=15: 674928631941, 22497649522, 1551551934, 166241131, 24627062, 4736577,
+      1136398, 331706, 115213, 47227, 22439, 12366, 7799, 5637, 4641,
+      4351, 4641, 5636, 7804, 12349, 22488, 47101, 115504, 331104,
+      1137513, 4734709, 24630013, 166236216, 1551562049, 22497623313,
+      674928706043
+t=16: 10778407135878, 336825119220, 21730698238, 2173051362, 299738047,
+      53522456, 11894434, 3202275, 1024707, 384280, 167079, 83532, 47740,
+      31026, 22864, 19052, 17932, 19052, 22864, 31026, 47741, 83524,
+      167114, 384173, 1024945, 3201952, 11894225, 53525772, 299723538,
+      2173098878, 21730564584, 336825458846, 10778406336130
+```
+
+For each displayed vector form a triangular array by setting $D_{0,i}=x_i$ and $D_{r+1,i}=D_{r,i}+D_{r,i+1}$ for $0\le i<2t-r$. Pascal's identity gives $D_{r,i}=\sum_{j=0}^{r}\binom rj x_{i+j}$ by induction on $r$. The row at $r=t$ is $(i!(t-i)!)_{i=0}^{t}$ for each printed vector. At $t=2$, for example, the rows starting at $(2,0,0,1,0)$ give $(2,0,1,1)$ and then $(2,1,2)$. This verifies all prescribed marginals using integer addition and the explicit vectors. The total row count follows by summing the prescribed margins on any fixed set of columns.
+
+For $17\le t\le21$, all values needed for the corresponding finite checks follow from [(2)](#equation-2) by integer division with the stated tie rule and consecutive differences. In particular, starting at the list $(y_0,\ldots,y_{2t})$, replace each adjacent pair by its first entry minus its second, repeatedly. The first entry on step $2t-i$ of the same process applied to the tail starting at $y_i$ is $x_i$. This is [(2)](#equation-2) by induction using Pascal's identity. The margins already follow from [Lemma 3](#lemma-3), so these five cases require only the positivity checks in Section 4. At the general threshold $t=22$, the two sides $2(23!)$ and $45\cdot3^{44}$ are respectively $51704033477769953280000$ and $44314690598262505479645$. The monotonic ratio in the proof then handles every greater strength.
 
 ## References
 
@@ -215,3 +361,7 @@ For each weight $i$, include $x_i$ copies of every binary word of length $36$ an
 <a name="ref-longyear"></a>
 
 5. J. Q. Longyear. *Arrays of strength* $s$ *on two symbols*. Journal of Statistical Planning and Inference **10** (1984), 227–239. [doi:10.1016/0378-3758(84)90075-2](https://doi.org/10.1016/0378-3758%2884%2990075-2)
+
+<a name="ref-mathon"></a>
+
+6. R. Mathon and Tran van Trung. *Directed t-Packings and Directed t-Steiner Systems*. Designs, Codes and Cryptography **18** (1999), 187–198. [DOI](https://doi.org/10.1023/A:1008353723204)

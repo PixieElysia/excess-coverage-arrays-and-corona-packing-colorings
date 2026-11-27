@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Column-symmetric binary excess coverage array weight witness",
+  "type": "object",
+  "required": ["strength", "columns", "multiplicities"],
+  "properties": {
+    "strength": {"type": "integer", "minimum": 1},
+    "columns": {"type": "integer", "minimum": 1},
+    "multiplicities": {
+      "type": "array",
+      "items": {"type": "integer", "minimum": 0},
+      "description": "Entry i is the multiplicity of each individual word of weight i."
+    }
+  },
+  "$comment": "Also check strength <= columns, length == columns+1, every marginal equation and the total row count. A small.json file contains a list of records of this schema."
+}

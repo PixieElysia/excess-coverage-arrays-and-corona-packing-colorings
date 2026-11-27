@@ -1,37 +1,44 @@
 # Binary excess coverage arrays and exact corona packing colorings
 
-**AI-assisted research preprints · version 0.2 · 27 November 2026.**
+**v0.3 revision draft · 27 November 2026 · CHATGPT ASTRA 6.2**
 
-This repository contains two combinatorics manuscripts, their Lean 4.19 proofs, and independent computational checks. Human author attribution and independent review are pending.
+The two manuscripts give separate mathematical results, complete written proofs, and corresponding Lean 4.19.0 developments. The display byline follows the repository steward's request. Human authorship, accountability and independent review remain pending. [Contribution record](CONTRIBUTIONS.md) · [中文导览](research/OVERVIEW.zh-CN.md)
 
-## Results
+## Results and evidence
 
-1. **Binary excess coverage arrays.** For every positive strength $t$, there is a binary array with $(t+1)!$ rows and $2t$ columns whose row multiplicities are invariant under column permutations. On any specified $t$ columns, a pattern with $a$ ones occurs exactly $a!(t-a)!$ times. The strength-18 certificate has 37 positive weight multiplicities and satisfies every equation in Gentle, Horsley and Wanless's equation (3), which the paper reported infeasible. [Original article, equation (3)](https://link.springer.com/article/10.1007/s10623-025-01722-9#Equ3)
-2. **Packing colorings of corona graphs.** For every $n \ge 12$, the packing chromatic number of $P_n \odot K_2$ is 7. For $C_n \odot K_2$, it is 8 at $n=13$ and 7 at every other $n \ge 12$. These formulas resolve the conjecture and the problem on page 107. [Original article, §4](https://dergipark.org.tr/en/download/article-file/5580259#page=14)
+| Claim | Written mathematical evidence | Lean coverage and review status |
+| --- | --- | --- |
+| The strength-18 column-symmetric instance of equation (3) admits a solution | Explicit certificate of 37 positive weight multiplicities, with all 19 integer checks and the row total | Certificate arithmetic and existence formalized; independent human review pending |
+| For every positive strength $t$, minimum-row binary excess coverage exists at width $2t$ | Rounding, inclusion–exclusion and finite certificates; the minimum row count is $(t+1)!$ | Existence formalized; the row-count lower bound is proved in the manuscript; independent human review pending |
+| The maximum width in the column-symmetric class is asymptotic to $\log_2((t+1)!)$ | Written proof using an integer kernel basis for the lower bound and occupied weight layers for the upper bound | Written proof only; independent human review pending |
+| For $n\ge12$, $P_n\odot K_2$ has packing chromatic number 7, and $C_n\odot K_2$ has value 8 at $n=13$ and 7 elsewhere | Written finite obstructions, transfer formulation and explicit upper-bound constructions | Both exact formulas formalized using graph edges, with compiler-backed LRAT checking for the finite obstructions; independent human review pending |
 
-## Files
+The array construction answers the precise binary question in the 2025 paper's Section 5. The revised Levenshtein conjecture and the unrestricted maximum width are outside the result. The graph paper's earlier seven-color path bound, smaller exact instances and published eight-color witness retain their original attribution. [Array original, equation (3)](https://link.springer.com/article/10.1007/s10623-025-01722-9#Equ3) · [Graph original, §4](https://dergipark.org.tr/en/download/article-file/5580259#page=14)
+
+## Manuscripts and evidence
 
 | | Binary excess coverage arrays | Corona packing colorings |
 | --- | --- | --- |
-| Manuscript | [Markdown](excess-arrays/paper.md) · [PDF](excess-arrays/paper.pdf) · [LaTeX](excess-arrays/paper.tex) | [Markdown](packing-corona/paper.md) · [PDF](packing-corona/paper.pdf) · [LaTeX](packing-corona/paper.tex) |
-| Formal statements | [Existence for every strength](excess-arrays/lean/MainResult.lean) · [Equation (3)](excess-arrays/lean/ExcessArrays.lean) | [Exact values from graph edges](packing-corona/lean/EdgeColors.lean) |
-| Computation | [Strength-18 certificate](excess-arrays/t18.json) · [Results CSV](excess-arrays/results.csv) · [Build and check log](excess-arrays/verification.log) | [Transfer-state verifier](packing-corona/verify.py) · [Independent vertex search](packing-corona/graph_search.py) · [Results CSV](packing-corona/results.csv) · [Build and check log](packing-corona/verification.log) |
-| Study notes | [Readme](excess-arrays/README.md) · [Prior art](excess-arrays/PRIOR_ART.md) | [Readme](packing-corona/README.md) · [Prior art](packing-corona/PRIOR_ART.md) |
+| English | [Markdown](excess-arrays/paper.md) · [PDF](excess-arrays/paper.pdf) · [LaTeX](excess-arrays/paper.tex) | [Markdown](packing-corona/paper.md) · [PDF](packing-corona/paper.pdf) · [LaTeX](packing-corona/paper.tex) |
+| 中文 | [Markdown](excess-arrays/paper.zh-CN.md) · [PDF](excess-arrays/paper.zh-CN.pdf) | [Markdown](packing-corona/paper.zh-CN.md) · [PDF](packing-corona/paper.zh-CN.pdf) |
+| Formalization | [Model](excess-arrays/FORMALIZATION.md) · [Theorem coverage](excess-arrays/THEOREM_COVERAGE.md) | [Model](packing-corona/FORMALIZATION.md) · [Theorem coverage](packing-corona/THEOREM_COVERAGE.md) |
+| Certificates | [Strength-18 vector](excess-arrays/t18.json) · [Residuals](research/audit/outputs/t18-residuals.csv) · [Results CSV](excess-arrays/results.csv) | [SAT assignments](research/audit/outputs/graph-witnesses.json) · [Weighted proof table](research/audit/outputs/path-weight-certificate.json) · [Results CSV](packing-corona/results.csv) |
+| Project notes | [Readme](excess-arrays/README.md) · [Prior art](excess-arrays/PRIOR_ART.md) | [Readme](packing-corona/README.md) · [Prior art](packing-corona/PRIOR_ART.md) |
 
 ## Reproduce
 
-Use Python 3.10 or later and the official Lean 4.19.0 toolchain. Both Lean projects use the standard library. With Elan installed, the `lean-toolchain` files select the pinned version for each project.
+Use Python 3.10 or later and the pinned Lean 4.19.0 standard library. The English PDFs use LaTeX and the Chinese PDFs use Pandoc, XeLaTeX and Noto CJK fonts. See the [reproducibility audit](REPRODUCIBILITY_AUDIT.md) for clean execution and the verification log.
 
 ```sh
-./verify.sh
+./verify.sh arrays
+./verify.sh graphs
+python3 -B research/audit/proof_baseline.py
+python3 -B research/audit/verify_t18.py --check
+python3 -B research/audit/verify_graph_semantics.py --check
+python3 -B research/audit/verify_written_obstructions.py
+python3 -B research/audit/test_negative_controls.py
 python3 -B research/collect_results.py --check
 sha256sum -c SHA256SUMS
 ```
 
-The [reproducibility audit](REPRODUCIBILITY_AUDIT.md) records the clean build, formal theorem dependencies, computational checks, and PDF build commands. The [checksum manifest](SHA256SUMS) fingerprints the distributed files.
-
-## Prior work and scope
-
-The array manuscript gives a construction at the parameters in equation (3) and proves existence at width $2t$ for all strengths. It also proves the asymptotic maximum width within the column-symmetric class by a written argument. The Lean development covers the full existence theorem and the strength-18 certificate. The graph manuscript credits the original eight-color witness at $n=13$ and supplies the missing lower bounds and a construction covering every other order. Lean proves the exact graph formulas from the underlying edges. The finite graph lower bounds use the standard LRAT checker through `bv_decide`. [Array comparison](excess-arrays/PRIOR_ART.md) · [Graph comparison](packing-corona/PRIOR_ART.md)
-
-[中文说明](research/OVERVIEW.zh-CN.md) · [研究接续记录](research/PROGRESS.md) · [文献检索记录](research/SOURCES.md)
+[Revision audit](REVISION_AUDIT.md) · [Proof baseline](research/PROOF_BASELINE.md) · [Claims matrix](research/CLAIMS_MATRIX.md) · [Literature matrix](research/LITERATURE_MATRIX.md) · [Lean trust model](research/TRUST_MODEL.md) · [Changelog](CHANGELOG.md)

@@ -1,0 +1,26 @@
+2026-11-27T16:41:55+08:00
+
+Longyear publisher PDF
+curl: (56) CONNECT tunnel failed, response 403
+000  0 https://www.sciencedirect.com/science/article/pii/0378375884900752/pdfft
+curl exit code: 56
+
+Shirakura publisher DOI
+200 text/html 1156 https://projecteuclid.org/journals/hiroshima-mathematical-journal/volume-7/issue-1/Contributions-to-balanced-fractional-2spm-factorial-designs-derived-from-balanced/10.32917/hmj/1206135961.full
+HTML document, ASCII text, with very long lines (1156), with no line terminators
+curl exit code: 0
+
+Shirakura publisher PDF
+200 text/html 1162 https://projecteuclid.org/euclid.hmj/1206135961.full
+HTML document, ASCII text, with very long lines (1162), with no line terminators
+curl exit code: 0
+
+Kuriki publisher PDF
+curl: (56) CONNECT tunnel failed, response 403
+000  0 https://www.sciencedirect.com/science/article/pii/0012365X9390398D/pdfft
+curl exit code: 56
+
+Mathon publisher article
+200 text/html; charset=utf-8 254737 https://link.springer.com/article/10.1023/A:1008353723204?error=cookies_not_supported [transient redirect parameter omitted]
+HTML document, ASCII text, with very long lines (46845)
+curl exit code: 0

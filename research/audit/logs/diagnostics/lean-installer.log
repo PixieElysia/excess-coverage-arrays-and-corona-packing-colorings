@@ -1,0 +1,7 @@
+$ timeout 135 bash research/audit/install_lean.sh /tmp/revision-lean-installer-verify
+/tmp/tmp.b4fkRi22FC: OK
+Lean (version 4.19.0, x86_64-unknown-linux-gnu, commit 6caaee842e94, Release)
+Lake version 5.0.0-6caaee8 (Lean version 4.19.0)
+2.1.3
+
+exit code: 0

@@ -1,0 +1,470 @@
+{
+  "baseline": "5e788f90d91cf7cd0f8a50bfad6f1db6ffc55db2",
+  "files": {
+    "excess-arrays/construct.py": "432b520002eacb3fbb03bea20fe53c946cc7957338c4a4c11709d106500dfd4f",
+    "excess-arrays/lean/Certificate.lean": "aea3f6be0748a7c3c5015945e2afdb96349067ae976997427f6cd47a35d50497",
+    "excess-arrays/lean/ExcessArrays.lean": "50bc743819797ec8af4d78849f0b119df593607d598e72566230e42ee2e5f6a2",
+    "excess-arrays/lean/General.lean": "e3f3c79eda90386c8a449a4ebafe31262c76776c1ad9b7c64aea859a457bfcda",
+    "excess-arrays/lean/Inversion.lean": "7411efe727c6fb3500d477c471971261d73dbacdbb6c751fbb8d6c92ec11f6a2",
+    "excess-arrays/lean/MainResult.lean": "a41b5ac5c8c71dac43eca9e6c75821b65319e770049d82604f4c8f8f12ae404e",
+    "excess-arrays/lean/Patterns.lean": "c227fb3d9b5dce0db33b9e82d17354490acc3d6b6b45041459c31708e7e7ce15",
+    "excess-arrays/lean/Small.lean": "b57870d9bd748c2e8da7c57b8c248e617ab5bb7665d127267cfffcb45506e1ff",
+    "excess-arrays/lean/Universal.lean": "c80609288652b4d5c932eb42a5d2b790af8173fbe99982dc4058caee81f05d66",
+    "excess-arrays/lean/lake-manifest.json": "91af2b8c4b3e5e92e8a092b04c087a987624d5169f592155e6847bd1d70bb44f",
+    "excess-arrays/lean/lakefile.toml": "c47ae14e2fd71f4900fc680f5ef4b586e1f5c6881b6a2ed3c524b74787e0bb36",
+    "excess-arrays/lean/lean-toolchain": "55e97be96000b5e9e290c9e74482e5e317861499a5540353ce845471bded8cea",
+    "excess-arrays/results.csv": "fbbfcb6c41268fe6ae3960ee84cac194effea6cc7219db19c1d78454c8f913de",
+    "excess-arrays/small.json": "c4f715eb93898d1119b7e40f695b5fb9338a4c5a98ddde30b8bd7714ba64e34a",
+    "excess-arrays/t18.json": "3a47a3097137861a846d3bc62b72240cc96e6190831a978f4fd5cfd563cd6986",
+    "excess-arrays/verification.log": "fead9e48bacca2420ab94c0befeadf01850ec035a3e2135bf109a67b82fecbbc",
+    "excess-arrays/verify.py": "bd5dc8e64fd1b90a61906a5a28b8bb2c7b1e5a4128fb8584b9048312cc571e13",
+    "packing-corona/graph_search.py": "78bc23833d4fdccf61c0b0c20a7091591da010d09ad3502c972770d13454401e",
+    "packing-corona/lean/Attainment.lean": "b21736463bba60a3b22a6fcd6de5c51d9e981efe5123e2cb6c5d9d1a6a8d3541",
+    "packing-corona/lean/Bridge.lean": "418f9c85de4991db2eecfc1a75aca563adf15d10d8d655e8b4d62b5bf179d363",
+    "packing-corona/lean/CoronaWalk.lean": "70d23c75ffc0ed4ae80b6636c957b02186a966d757fe3f356ca47c46b9eb9532",
+    "packing-corona/lean/CycleMetric.lean": "32b78e64fe95df6b93b5c0912c89f37e3ad9c569d26d34f0a232fa4a2fb6aef2",
+    "packing-corona/lean/EdgeColors.lean": "12fd598c0fe7c7dad1737ac7382513efce9f9004d86beccd17939fddfcb88d85",
+    "packing-corona/lean/ExactColors.lean": "0388f092782fea6404202811092ded5389e30c68943569b059a82af1428dd64e",
+    "packing-corona/lean/GraphProof.lean": "d2926ee58404969ffeff346eaefbb2ca32868ecaf56ca127a1f8bc597402f5f2",
+    "packing-corona/lean/PackingTools.lean": "727c54f84ad5ddfa093bf52f054e92429f4e0965ad3c5fef27e4fec053aabdcd",
+    "packing-corona/lean/Upper.lean": "145436c1894982c613b57d194b9a46868ecf8dac8159f33e825bfecfed1bce42",
+    "packing-corona/lean/lake-manifest.json": "7b262f929ae09fc7e58895bfb10acd490050c93961478d9582acdaeb1865bed7",
+    "packing-corona/lean/lakefile.toml": "bc16fff4b7f0fbcc80b5e65872bf048e7d69e1875a9b80f5e3eb343cd563867c",
+    "packing-corona/lean/lean-toolchain": "55e97be96000b5e9e290c9e74482e5e317861499a5540353ce845471bded8cea",
+    "packing-corona/results.csv": "d9e4f076b26611a739d2060d5184dec721d3c4605c4a9882049bf967bca8da09",
+    "packing-corona/verification.log": "938bd55fb39b930d24c291eeec146838fb007a03151deeb259f4ef55a15b7166",
+    "packing-corona/verify.py": "d9ef3e13a7347fbcdac142e6a2d8353950abaeb09c8a6fe6a8c438491d0a7e16",
+    "research/collect_results.py": "386920061b314cec368e7892fae70c75ded4672e764136ff819adf03f01ce4d2",
+    "verify.sh": "ca4c83eda8e707c5ba4bbf355bdbd7fe5129341075a18afa1269f67c9a322a2e"
+  },
+  "manuscripts": {
+    "excess-arrays/paper.tex": [
+      {
+        "unit": "equation environment 1",
+        "sha256": "b110b3571eb8b02fc4da0677f1d5a6fc7e706475ff980d6ceef185c1fa9f8f3c"
+      },
+      {
+        "unit": "theorem environment 2",
+        "sha256": "4f0486a6c38368cd775f36c399fe9dc9879486f3a5e97c8d8f93d2b895ffb37a"
+      },
+      {
+        "unit": "theorem environment 3",
+        "sha256": "a67f2efa6f627100deef830252a67f6d0d661794083b6fd2407f99121f0deb52"
+      },
+      {
+        "unit": "equation environment 4",
+        "sha256": "1ebc859d29bd19fc93c9e0d946cf39a656436dd3572962dafbe0f84cd8fb2619"
+      },
+      {
+        "unit": "lemma environment 5",
+        "sha256": "36dd31c433db19d1eeb2aacf1ed39baf00bd789f8ab7e3ba2b16640716c0d3cf"
+      },
+      {
+        "unit": "proof environment 6",
+        "sha256": "b3918acd26951a0ac497678d7c047a136791fd6955ce9b747b0ad401e69bcdc3"
+      },
+      {
+        "unit": "proof environment 7",
+        "sha256": "d3cc4d35512181c9ca269ae5cae0e8b9cf18f41a146dce9950b160d69d7cb1d6"
+      },
+      {
+        "unit": "lemma environment 8",
+        "sha256": "895f3b46102770fb2c5aab8fbe2319445e383bc097cb447670149b9bd6fa8a57"
+      },
+      {
+        "unit": "proof environment 9",
+        "sha256": "bebfdc01aa3a00991af89996b50e313b7567f125e588db3718b629bb91a99846"
+      },
+      {
+        "unit": "proof environment 10",
+        "sha256": "05531510886a4c601b2ba0beb11c2cbcc83631bf0d2f9227903461b61b842b4a"
+      },
+      {
+        "unit": "Rounding intersection counts, paragraph 1",
+        "sha256": "e87c5a790ddfc481f159f72c704a078bf79dd23009294bcad48b15a84af87d18"
+      },
+      {
+        "unit": "Rounding intersection counts, paragraph 2",
+        "sha256": "d3cc4d35512181c9ca269ae5cae0e8b9cf18f41a146dce9950b160d69d7cb1d6"
+      },
+      {
+        "unit": "Rounding intersection counts, paragraph 3",
+        "sha256": "d86ffed015b0cf983085cf26d45150cc934f25f73d62676e5aa26d7510e115bf"
+      },
+      {
+        "unit": "Maximum width under column symmetry, paragraph 1",
+        "sha256": "8d8d0d41e9e69e2cc388864140de1433bd09c2013962a17c5e0e682e877f9425"
+      },
+      {
+        "unit": "Maximum width under column symmetry, paragraph 2",
+        "sha256": "1113e4efa17f14de53f196b9cbf705c042afebb4ac2a47a7ebf3d3f1326965b8"
+      },
+      {
+        "unit": "Maximum width under column symmetry, paragraph 3",
+        "sha256": "8c9db8b56b3e42c6180d27085e5de038e9fbd8d3f9e8467e3eaab4dc947d546e"
+      },
+      {
+        "unit": "Maximum width under column symmetry, paragraph 4",
+        "sha256": "c37af41a0378434a9de834976811cdbf38abd2a5311f32802185258732456fa4"
+      },
+      {
+        "unit": "Maximum width under column symmetry, paragraph 5",
+        "sha256": "fd11a658d6ab233145e257f25f306f94655aa224ab1cd9bc7e30dbe48162d042"
+      },
+      {
+        "unit": "The strength-18 certificate, paragraph 1",
+        "sha256": "04602aadfdae4aeae2406ffae34e385eac2dcb3eee20d80e5c12834dd6e7508b"
+      }
+    ],
+    "excess-arrays/paper.md": [
+      {
+        "unit": "Theorem statement 1",
+        "sha256": "de84a8f813b5fccd5bc98a56501f1235f8c1fe43e7408932ac7a53667dfa63a6"
+      },
+      {
+        "unit": "Theorem statement 2",
+        "sha256": "48f968412c4309cd0e119e04925491460a6c3086780f3e21b0f767ff29647160"
+      },
+      {
+        "unit": "definition equation",
+        "sha256": "e3c9b313ea28765aa507bbeb6ef42d24e6ab4678c9289d2c43169b47470daaf0"
+      },
+      {
+        "unit": "Rounding intersection counts, paragraph 1",
+        "sha256": "002aead5357023d40f13f5265ca2b02f9efa6252a5227f0720c9470d176d8d6f"
+      },
+      {
+        "unit": "Rounding intersection counts, paragraph 2",
+        "sha256": "fa0132b2ef2649bd16c9dea53fb59f29b3352a469c3fa3e4871ab42729916387"
+      },
+      {
+        "unit": "Rounding intersection counts, paragraph 3",
+        "sha256": "8197dca4645584beb445c89f4fcae35a9c521ecdf02af4d5be203313d238f114"
+      },
+      {
+        "unit": "Rounding intersection counts, paragraph 4",
+        "sha256": "1e6ea2f246f29de9c7fd146fdf6c8c88f0a75c1d424d24c8972e2fe59e608cab"
+      },
+      {
+        "unit": "Rounding intersection counts, paragraph 5",
+        "sha256": "dea0ea62e3fab4e79aafc9a417dc88d48aa4e49bb6ac89ccce7c3633fc39bf9d"
+      },
+      {
+        "unit": "Rounding intersection counts, paragraph 6",
+        "sha256": "42802931ca9af6e0aaf5b5b521841eefd2ea6ce6b0ef62100a10d03c55e9ca00"
+      },
+      {
+        "unit": "Rounding intersection counts, paragraph 7",
+        "sha256": "3c0b8a4e7b66d4a4a072d910c3705c4f8c13f2ce1a1be39a594d94ee28080357"
+      },
+      {
+        "unit": "Rounding intersection counts, paragraph 8",
+        "sha256": "1214ffe8ca2daefb056e38399f2658e4ef25abf43fab8ba6f8d8f3ca6cab5d03"
+      },
+      {
+        "unit": "Rounding intersection counts, paragraph 9",
+        "sha256": "905660b2db8e1cd3bacc32bb501b3cc6fe39934b9e6e069b0e764d235c9273d0"
+      },
+      {
+        "unit": "Rounding intersection counts, paragraph 10",
+        "sha256": "548c30c498d48fe06f0e4f535043ac98b25d0c0c5631deec79182cdd13716aca"
+      },
+      {
+        "unit": "Rounding intersection counts, paragraph 11",
+        "sha256": "fa6014967f7f73f264d868c13b99f58db2a0886b98f6ee1d97c1832c90505995"
+      },
+      {
+        "unit": "Rounding intersection counts, paragraph 12",
+        "sha256": "7f05ce9cfa4d13e6b51e55a7c7b56cff3a75970278c3176db5c97e3350bd009c"
+      },
+      {
+        "unit": "Maximum width under column symmetry, paragraph 1",
+        "sha256": "5a54ff45a5c3482981f596c161a302717d0952d1247a0e0419f89f24e06bb173"
+      },
+      {
+        "unit": "Maximum width under column symmetry, paragraph 2",
+        "sha256": "ab67fa831ff85f8133108e251f5ddeab15152b8c4a81631b86cc6b902859b666"
+      },
+      {
+        "unit": "Maximum width under column symmetry, paragraph 3",
+        "sha256": "0f144c8bb1087d2ff10be07e131e31ddc751be621929c825c066355d1c12b659"
+      },
+      {
+        "unit": "Maximum width under column symmetry, paragraph 4",
+        "sha256": "7b6cbcbcd2afd60d9d53940fcf427221351107c42f5b4f296574cefce284dacb"
+      },
+      {
+        "unit": "Maximum width under column symmetry, paragraph 5",
+        "sha256": "ea39492d9171bff86f092861e61730b95031eb1c6e07ab8c27e1f5b386d9ccca"
+      },
+      {
+        "unit": "Maximum width under column symmetry, paragraph 6",
+        "sha256": "383383c5e85acb167c0abe875b36fac8f0f4de58c4d009963755e4ebd880375d"
+      },
+      {
+        "unit": "Maximum width under column symmetry, paragraph 7",
+        "sha256": "adcf963e04237587ef881f7ee5b630c29cbee79f3c3bf1315d334fe182387792"
+      },
+      {
+        "unit": "Maximum width under column symmetry, paragraph 8",
+        "sha256": "e9f2f80a0b76176b44bad495ae076f544257e366f3466763df0f0f4acce23165"
+      },
+      {
+        "unit": "Maximum width under column symmetry, paragraph 9",
+        "sha256": "c687000f80ec07a26aa8448718e2dd76595b7ba3f10f9d286220a5cd3d022e30"
+      },
+      {
+        "unit": "Maximum width under column symmetry, paragraph 10",
+        "sha256": "c09b3e2826b90d769b288f999bd0473d1a51707f51e45ad1f69e792e76a91c4a"
+      },
+      {
+        "unit": "Maximum width under column symmetry, paragraph 11",
+        "sha256": "effc624ac81d2fb4a10687a3917fbf9106b6f784e269260baf38cdcd78d7b16e"
+      },
+      {
+        "unit": "Maximum width under column symmetry, paragraph 12",
+        "sha256": "097e798d91bf16056bebc792699f5a4029c11923cdb36f414545b7de72e7eebb"
+      },
+      {
+        "unit": "Maximum width under column symmetry, paragraph 13",
+        "sha256": "315e774011c9d000c62e80dfd19203f11f7b5ec65c01840b3d2f9d8bf613a8a4"
+      },
+      {
+        "unit": "Maximum width under column symmetry, paragraph 14",
+        "sha256": "7348fbbe0adbf4fb6928832834b151d7df1ea6b80e2e62b3dfb045b608617b48"
+      },
+      {
+        "unit": "Maximum width under column symmetry, paragraph 15",
+        "sha256": "66d426c61a51306c1dd2e5b5221ec6ff8c1995c99bad08e0fdc5b01a2c808588"
+      },
+      {
+        "unit": "Maximum width under column symmetry, paragraph 16",
+        "sha256": "8905c30f3ad76a70f16bb720fdaf67527cfc6b73bf23d997a09b2032cf1acc03"
+      },
+      {
+        "unit": "Maximum width under column symmetry, paragraph 17",
+        "sha256": "2291df0672cef8330794452709ea570abc4ddae08e153fa408740960ef4867a4"
+      },
+      {
+        "unit": "The strength-18 certificate, paragraph 1",
+        "sha256": "94b2fb271e035a21feee6ca07ea485421e84443041921b9ffd44edbc8f6025f7"
+      },
+      {
+        "unit": "The strength-18 certificate, paragraph 2",
+        "sha256": "d318115e49464a034dac24d04fd3dd926450b8d8fd70b932a8e79177c1e6745d"
+      }
+    ],
+    "packing-corona/paper.tex": [
+      {
+        "unit": "theorem environment 1",
+        "sha256": "c9c38db94cbed9ab046ee6dbae713b5e8ea6e449bfb9bdda53eb630972e65541"
+      },
+      {
+        "unit": "equation environment 2",
+        "sha256": "257c4882290474c88ccf91851de407f6804abf417216174c4417fefe3c19fa07"
+      },
+      {
+        "unit": "lemma environment 3",
+        "sha256": "90b7c3e234d34d8b86cf50b93b11f607c6350e76d66db71543eb621a1e18d624"
+      },
+      {
+        "unit": "proof environment 4",
+        "sha256": "d2d8c5b89db7f7e99f9789ccb5c9a73101d6e299d72e7d5f46626243e72cbd20"
+      },
+      {
+        "unit": "lemma environment 5",
+        "sha256": "030b24f0189c2d90bd37c8c6611ded2fe04deb7b05768ab2dca0e588b18aad84"
+      },
+      {
+        "unit": "proof environment 6",
+        "sha256": "7505da22c2b813cb1e7725cc412c3d3a9ec6ee628caaa4a586c5afbcf11f79ab"
+      },
+      {
+        "unit": "A finite transfer graph, paragraph 1",
+        "sha256": "bf107b94e4a3eadf38feb8422aa3dcadce18d1bf262b3006caab6c84efd58bc1"
+      },
+      {
+        "unit": "A finite transfer graph, paragraph 2",
+        "sha256": "b75fd43fcad50cae6278a4fff6b4d8203425bad7eea7c4313349662e50fddad7"
+      },
+      {
+        "unit": "A finite transfer graph, paragraph 3",
+        "sha256": "b55daa572357519e33d0e7ad8590c04996d56b37221b219c82223b15085bd4b1"
+      },
+      {
+        "unit": "A finite transfer graph, paragraph 4",
+        "sha256": "3c352617f99d574058f71b0c3bd5b08aa178cd0311f734fd1ace0c5c52b90a96"
+      },
+      {
+        "unit": "A finite transfer graph, paragraph 5",
+        "sha256": "343eb6bc0ce8936a3d27359cc2510fbe9e4103ed791e919c23c67cd4812c59a8"
+      },
+      {
+        "unit": "The finite lower bounds, paragraph 1",
+        "sha256": "5b9879ec05bd3279deb6a8f21781a0274aa49f7db2758126898a523beda3dc99"
+      },
+      {
+        "unit": "The finite lower bounds, paragraph 2",
+        "sha256": "81426f663aedb292d067d0b029919f1afb65c6aa6f0d092d5e3cef0f33a1e176"
+      },
+      {
+        "unit": "The finite lower bounds, paragraph 3",
+        "sha256": "ef306f10ffdbd131313c1de4a6b9392201927a80bace95792a441edf3551a7b5"
+      },
+      {
+        "unit": "Coloring words for the upper bounds, paragraph 1",
+        "sha256": "4952d17efa9d89ceb6b77cfcc6668398b28c217ace3c7a59ad391b400e49b8b4"
+      },
+      {
+        "unit": "Coloring words for the upper bounds, paragraph 2",
+        "sha256": "17d6314fb3537c705527cd2fa427e10bc6109f40399e77cafc9fe0d3c42e4cc7"
+      },
+      {
+        "unit": "Coloring words for the upper bounds, paragraph 3",
+        "sha256": "1f7ad65b1061aa6eb6deb53bf81e333237af157123670604a4e54d94b77254a5"
+      },
+      {
+        "unit": "Coloring words for the upper bounds, paragraph 4",
+        "sha256": "658fbac47bbd3bf9a656ddb4a231b158d748eef9b246b359d1d923b4f5e4e506"
+      },
+      {
+        "unit": "Coloring words for the upper bounds, paragraph 5",
+        "sha256": "3c0bf36d684b6da5e3cb147fb228ee8d0ba3c1a7aeac6ba0eece13be14acfbb5"
+      }
+    ],
+    "packing-corona/paper.md": [
+      {
+        "unit": "Theorem statement 1",
+        "sha256": "94b2b20da14335a461eec56b54ae121b906c75fed2ecad370ba9867377ad27ce"
+      },
+      {
+        "unit": "A finite transfer graph, paragraph 1",
+        "sha256": "30993b036ac063594e03407c0cba3f2d60c7b622743154f5a2cd2029a4596282"
+      },
+      {
+        "unit": "A finite transfer graph, paragraph 2",
+        "sha256": "7403547f8d3772ecbcf9bde7d2d920275e327a90f5bd12d54a6f087443b4b4cd"
+      },
+      {
+        "unit": "A finite transfer graph, paragraph 3",
+        "sha256": "cd807dc44e615e6970d434077fe9b4c602c63f32a5b3dd3d27f749eef58611ae"
+      },
+      {
+        "unit": "A finite transfer graph, paragraph 4",
+        "sha256": "868b102bae2987794022aec0b3ed30e02a1a25e7c68316df50633f1574f0144f"
+      },
+      {
+        "unit": "A finite transfer graph, paragraph 5",
+        "sha256": "c2748b70a5400dc20e3cf3f871f95f46a427470711e8f220c705f765dd0331d0"
+      },
+      {
+        "unit": "A finite transfer graph, paragraph 6",
+        "sha256": "9d026c85ad00117892b083d7fe324ca070d2a31c95402ce003f03be053542415"
+      },
+      {
+        "unit": "A finite transfer graph, paragraph 7",
+        "sha256": "34e2a0be2dcb9907f8c0a0a9466ef97fbc78db4adb158e0052806bd4b1813d5e"
+      },
+      {
+        "unit": "A finite transfer graph, paragraph 8",
+        "sha256": "8d423fc3ab87149b79be3117c21cf407dd31fd94ed9a299b572c2c8621e03ef9"
+      },
+      {
+        "unit": "A finite transfer graph, paragraph 9",
+        "sha256": "58463adaf32242d95a1c29114cec5dd60e8b261df598e5f03380b54a41d21b4f"
+      },
+      {
+        "unit": "A finite transfer graph, paragraph 10",
+        "sha256": "41e8e994273a0b1857be4413c41267530c8f847ca76fa63b9b3b7f549ea27e4f"
+      },
+      {
+        "unit": "A finite transfer graph, paragraph 11",
+        "sha256": "2b8f4b1227e4855027086cd40b94db3509b47dc4409bfcfa2ccbe74faadb2dd9"
+      },
+      {
+        "unit": "A finite transfer graph, paragraph 12",
+        "sha256": "1e1e64237792a7438fc42905b5b3a17669984e2ed0332157553bdf6c52b18d3c"
+      },
+      {
+        "unit": "A finite transfer graph, paragraph 13",
+        "sha256": "1e6ea2f246f29de9c7fd146fdf6c8c88f0a75c1d424d24c8972e2fe59e608cab"
+      },
+      {
+        "unit": "A finite transfer graph, paragraph 14",
+        "sha256": "a5464aaedb9d672e44e662aaf390a5c32cd86731e6bf876f09f8fb6fc3019df7"
+      },
+      {
+        "unit": "A finite transfer graph, paragraph 15",
+        "sha256": "a52a937b942677261c9d69b7e7306ee765019ddaf69eef2a3f6982c9ff3ae2b7"
+      },
+      {
+        "unit": "A finite transfer graph, paragraph 16",
+        "sha256": "8fb1f7480ffb008c18ec03fcadd189613e30b31cfca73849d894402f4008251b"
+      },
+      {
+        "unit": "The finite lower bounds, paragraph 1",
+        "sha256": "d0cbc5f94b4245b40317fe17d139abc1500b35dfc30bb5086287d747723c87ca"
+      },
+      {
+        "unit": "The finite lower bounds, paragraph 2",
+        "sha256": "29013c5b46bafa13a58aa0fd3dd268ee2bdcc5671f4197562af3afb510e40d07"
+      },
+      {
+        "unit": "The finite lower bounds, paragraph 3",
+        "sha256": "ea2f05fcef3dc60c431d70046260a5d0c83bb0e86a5725e49f360438808c6525"
+      },
+      {
+        "unit": "The finite lower bounds, paragraph 4",
+        "sha256": "957db1f674b63849e5c98d7faf508278be5206b3f47221edcd342a68c0d379e7"
+      },
+      {
+        "unit": "The finite lower bounds, paragraph 5",
+        "sha256": "b77fde54d3dc2fd1a6210d14248daf5b120feeeb5412351a2b66444e24fd7faa"
+      },
+      {
+        "unit": "The finite lower bounds, paragraph 6",
+        "sha256": "620a6e95396c7f94a2b8e3d990491cbe274afac71cbbbe3055bb6f6c7d497999"
+      },
+      {
+        "unit": "The finite lower bounds, paragraph 7",
+        "sha256": "00d291be874ecbc5683481817c2205f5aa93fa053c70425ee4384225e4f5a274"
+      },
+      {
+        "unit": "The finite lower bounds, paragraph 8",
+        "sha256": "9c7eba1ef7e45118bba425f8f655f3d61b1fecc8e904dd08c084a5b4817a7be6"
+      },
+      {
+        "unit": "Coloring words for the upper bounds, paragraph 1",
+        "sha256": "a0272fd6635dd814a04a15ebef4c684faf1eaf6c9f24b5fdba4a3937513833ac"
+      },
+      {
+        "unit": "Coloring words for the upper bounds, paragraph 2",
+        "sha256": "4e7e646d8050629a4482896417581d8cfac798eaf917467066737b617905c35f"
+      },
+      {
+        "unit": "Coloring words for the upper bounds, paragraph 3",
+        "sha256": "798096fc76400f30240073b60e75f0a4a231e6f441474eeb3bec79ba8974657a"
+      },
+      {
+        "unit": "Coloring words for the upper bounds, paragraph 4",
+        "sha256": "c5a1b4bdbdd886566128cf66a94b99e4a26c2650e57a5e209cffe1c060e878f1"
+      },
+      {
+        "unit": "Coloring words for the upper bounds, paragraph 5",
+        "sha256": "530f0e271f0230af19f1af6ba6b536d59044f8252495f89346c937a2c54fb1ec"
+      },
+      {
+        "unit": "Coloring words for the upper bounds, paragraph 6",
+        "sha256": "995d32151eb98919b04c65d8b098cada1038dbd32b5c91634820e8c7baacc4ab"
+      },
+      {
+        "unit": "Coloring words for the upper bounds, paragraph 7",
+        "sha256": "ac771cf893b66d4841900279e202cd1ba4ecb7c1bc3ebb2840dd13da56746388"
+      },
+      {
+        "unit": "Coloring words for the upper bounds, paragraph 8",
+        "sha256": "db9d941a284cc8cb4ac9376efc1dd9aa8cd4ec06f1a78d027a8d38c2ebfe287b"
+      }
+    ]
+  }
+}

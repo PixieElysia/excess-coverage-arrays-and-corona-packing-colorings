@@ -1,0 +1,7 @@
+name = "excess_arrays"
+version = "0.1.0"
+defaultTargets = ["ExcessArrays"]
+
+[[lean_lib]]
+name = "ExcessArrays"
+roots = ["Patterns", "Certificate", "ExcessArrays", "Small", "Inversion", "General", "Universal", "MainResult"]

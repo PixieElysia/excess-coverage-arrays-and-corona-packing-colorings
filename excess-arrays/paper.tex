@@ -1,0 +1,237 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,booktabs,microtype}
+\usepackage[margin=1in]{geometry}
+\usepackage[hidelinks,pdftitle={Binary excess coverage arrays at minimum size}]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\cx}{\mathsf{CA}_{X}}
+\newcommand{\Ksym}{K_{\mathrm{sym}}}
+\newcommand{\nint}[1]{\left\lfloor #1\right\rceil}
+\title{Binary excess coverage arrays at minimum size\\
+\large The strength-18 instance and asymptotically sharp symmetric width}
+\author{}
+\date{Research note \quad 26 November 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+Gentle, Horsley and Wanless reported that the integer system for a
+column-symmetric binary excess coverage array of strength 18 on 36 columns
+has no nonnegative solution. An explicit solution given here has smallest
+coordinate 350847. We construct minimum-size arrays on twice the strength
+for every strength from 18 onward. We also determine the leading asymptotic for
+the maximum width of a column-symmetric minimum-size array. At strength $t$
+the width is $(1+o(1))\log_2((t+1)!)$. The two proofs use rounding in
+different coordinates and require only exact integer arithmetic for the
+finite cases.
+\end{abstract}
+
+\section{The parameter in question}
+A binary excess coverage array of strength $t$ and width $k\ge t$ is a
+multiset of binary words of length $k$. On any specified $t$ coordinates,
+each specified pattern with $a$ ones must occur at least $a!(t-a)!$ times.
+Summing over all patterns on those coordinates gives the minimum possible
+row count $N=(t+1)!$ as a lower bound. At that row count, these are
+binary balanced arrays for the index vector $a!(t-a)!$. Column-symmetric
+representations by weight are standard in balanced-array theory
+\cite{kuriki,shirakura}. An array meeting the bound has
+equality for every pattern. We call an array \emph{column-symmetric} if
+permuting its columns preserves its row multiset. A word of weight $i$
+then occurs with a multiplicity $x_i$ depending only on $i$.
+
+For such an array, the constraints at minimum size are precisely
+\begin{equation}
+ \sum_{j=0}^{k-t}\binom{k-t}{j}x_{a+j}=a!(t-a)!,
+ \qquad 0\le a\le t,\qquad x_i\in\mathbb Z_{\ge0}.                 \label{eq:marg}
+\end{equation}
+Indeed, the other $k-t$ positions supply the $j$ additional ones.
+Gentle, Horsley and Wanless \cite[Sec.~5, Eq.~(3)]{ghw} considered
+$k=2t$, found solutions for $t\le17$, and reported infeasibility at
+$t=18$. They explicitly left open the existence of a general
+$\cx(19!;18,36,2)$. Their use of this array is as a necessary condition
+on a sequence covering array. The results below concern the binary array.
+
+\section{A positive integer solution}
+Write $\nint{z}$ for a nearest integer to $z$, taking the even integer
+at a tie. Define
+\begin{equation}
+ y_j=\nint{\frac{N}{j+1}},\qquad
+ x_i=\sum_{r=0}^{k-i}(-1)^r\binom{k-i}{r}y_{i+r}
+ \quad(0\le i,j\le k).                                           \label{eq:mob}
+\end{equation}
+\begin{lemma}
+The integers in \eqref{eq:mob} satisfy the equalities in
+\eqref{eq:marg}. Each $x_i$ is within $2^{k-i}/2$ of
+$x_i^*=N/((k+1)\binom{k}{i})$.
+\end{lemma}
+\begin{proof}
+Assign $y_j$ as the total multiplicity of words containing any fixed
+$j$-subset in their support. Inclusion--exclusion over the remaining
+positions gives \eqref{eq:mob} for the signed multiplicity of a word
+with exactly that support. This inversion is valid before positivity
+is established. If $j\le t$ then $j+1$ divides $N$, so $y_j=N/(j+1)$.
+On a prescribed set of $a$ ones and $b=t-a$ zeros, inclusion--exclusion
+therefore gives the signed count
+\[
+ \sum_{r=0}^{b}(-1)^r\binom{b}{r}\frac{N}{a+r+1}
+ = N\int_0^1 p^a(1-p)^b\,dp
+ = a!b!.
+\]
+With every $y_j$ replaced by $N/(j+1)$ the same integral at degree $k$
+gives $x_i^*=N i!(k-i)!/(k+1)!$. Each term rounded in \eqref{eq:mob}
+contributes error at most half its binomial coefficient.
+\end{proof}
+
+\begin{theorem}\label{thm:twice}
+For every $t\ge18$ a column-symmetric $\cx((t+1)!;t,2t,2)$ exists.
+At $t=18$ the solution in \eqref{eq:mob} has all 37 coordinates positive.
+\end{theorem}
+\begin{proof}
+It suffices that $2N\ge(k+1)3^k$, since
+$\binom{k}{i}2^{k-i}\le\sum_{j=0}^k\binom{k}{j}2^{k-j}=3^k$.
+For $k=2t$ the sufficient inequality holds at $t=22$ and persists:
+increasing $t$ by one multiplies the ratio of the two sides by
+$(t+2)(2t+1)/(9(2t+3))>1$ for $t\ge22$. For the four smaller
+strengths, exact evaluation of \eqref{eq:mob} gives
+\[
+\begin{array}{c|rrrr}
+ t &18&19&20&21\\ \hline
+ \min_i x_i&350847&1792479&9032086&48444386.
+\end{array}
+\]
+The appendix gives the finite calculation in full algorithmic form.
+\end{proof}
+
+For $1\le t\le16$, the accompanying \texttt{small.json} gives
+independent integer certificates. At $t=17$, \eqref{eq:mob} yields minimum
+multiplicity $77537$. Together with Theorem~\ref{thm:twice} these establish
+existence at every positive strength. The row bound is attained, so
+$\mathsf{CAN}_X(t,2t,2)=(t+1)!$. In the sequence-covering application
+of \cite[Sec.~5]{ghw}, nonexistence of this binary array alone can
+therefore never give the proposed improvement.
+
+\section{Maximum width under column symmetry}
+Let $\Ksym(t)$ be the maximum $k$ admitting a column-symmetric array
+with $N=(t+1)!$ rows, for $t\ge2$. We use the convention
+$\binom{n}{r}=0$ when $n\ge0$ and $r\notin\{0,\ldots,n\}$.
+
+\begin{lemma}\label{lem:lattice}
+For $d=k-t\ge1$, the equalities in \eqref{eq:marg} have an integer
+solution $x$ with
+\[
+ \max_i |x_i-x_i^*| \le \tfrac12\binom{k}{t+1}.
+\]
+In particular, a nonnegative solution exists whenever
+$2N\ge(k+1)\binom{k}{\lfloor k/2\rfloor}\binom{k}{t+1}$.
+\end{lemma}
+\begin{proof}
+There is an integer particular solution $z$. Set $z_0,\ldots,z_{d-1}$
+to zero, then solve successively for $z_{d+a}$, whose coefficient
+in equation $a$ is one. This also proves that the $t+1$ equations are
+independent, so their real kernel has dimension $d$.
+
+For $0\le h<d$, let
+\[
+ B_{ih}=(-1)^i\binom{i}{h}\binom{k-i}{d-1-h},
+ \qquad 0\le i\le k .
+\]
+Apart from the sign this is a polynomial in $i$ of degree at most
+$d-1$. Its alternating $d$th difference vanishes. Thus every column of
+$B$ belongs to the kernel. In rows $0,\ldots,d-1$ the entries above
+the diagonal vanish and its diagonal entries are nonzero. The columns
+are consequently a real basis of the kernel consisting of integer vectors.
+Since $x^*$ also satisfies the equations, write $x^*-z=Bv$ and round
+the coordinates of $v$. The vector $x=z+B\nint v$ is integral, and the
+error in its $i$th coordinate is at most
+\[
+ \tfrac12\sum_{h=0}^{d-1}\binom{i}{h}\binom{k-i}{d-1-h}
+ =\tfrac12\binom{k}{d-1}=\tfrac12\binom{k}{t+1}.
+\]
+The smallest coordinate of $x^*$ is
+$N/((k+1)\binom{k}{\lfloor k/2\rfloor})$, giving the last assertion.
+\end{proof}
+
+\begin{theorem}\label{thm:width}
+As $t\to\infty$, $\Ksym(t)\sim\log_2((t+1)!)\sim t\log_2 t$.
+\end{theorem}
+\begin{proof}
+For the lower bound take fixed $0<\epsilon<1$ and set
+$k=\lfloor(1-\epsilon)\log_2 N\rfloor$. By Stirling's formula,
+$k=\Theta(t\log t)$. The estimate
+$\binom{k}{t+1}\le(ek/(t+1))^{t+1}$ gives
+$\log\binom{k}{t+1}=O(t\log\log t)=o(\log N)$.
+As $\binom{k}{\lfloor k/2\rfloor}\le 2^k\le N^{1-\epsilon}$,
+Lemma~\ref{lem:lattice} applies for all sufficiently large $t$.
+
+For the upper bound select a uniformly random row from any such array
+and write $W$ for its weight. On any $j\le t$ prescribed positions, a
+specified pattern of $a$ ones and $b=j-a$ zeros has probability
+$\int_0^1p^a(1-p)^b\,dp$. At $j=t$ this is the defining equality.
+At smaller $j$ sum over the other $t-j$ coordinates, which multiplies
+the integrand by $(p+(1-p))^{t-j}=1$. Conditional on $W=w$, the support
+is uniform over the $w$-subsets by column symmetry. For $2s\le t$, the
+probability of a specified $s$ ones and $s$ zeros is therefore
+\[
+ \frac{1}{(2s+1)\binom{2s}{s}}
+ =\mathbb E\!\left[\frac{(W)_s(k-W)_s}{(k)_{2s}}\right],
+\]
+where $(u)_r$ denotes a falling factorial. Some occupied weight $w$
+attains at least the displayed average. Using $\binom{2s}{s}\le4^s$
+and $(k)_{2s}\ge(k-2s+1)^{2s}$ yields
+\[
+ \frac{w(k-w)}{k^2}\ \ge\
+ \frac{(1-(2s-1)/k)^2}{4(2s+1)^{1/s}}.
+\]
+With $s=\lfloor\sqrt t\rfloor$ for $t\ge4$, the right side tends to
+$1/4$ uniformly in $k\ge t$. Thus $w/k=1/2+o(1)$. The whole layer
+of $\binom{k}{w}$ distinct words occurs, so
+$\log_2 N\ge\log_2\binom{k}{w}=(1-o(1))k$ by Stirling's formula.
+For fixed $t\ge2$ finiteness also follows from $s=1$: some layer has
+$\min(w,k-w)\ge(k-1)/6$, and $\binom{k}{w}\ge 2^{\min(w,k-w)}$.
+Letting $\epsilon$ decrease to zero finishes the proof.
+\end{proof}
+
+\appendix
+\section{Exact reproduction}
+The following Python code evaluates the four finite cases of
+Theorem~\ref{thm:twice} and checks the marginal equations directly.
+The separate certificate file \texttt{t18.json} contains the 37 integers
+in weight order for checking without a generator.
+\begin{verbatim}
+from fractions import Fraction
+from math import comb, factorial
+for t in range(18, 22):
+    k, N = 2*t, factorial(t+1)
+    y = [round(Fraction(N, j+1)) for j in range(k+1)]
+    x = [sum((-1)**r * comb(k-i, r) * y[i+r]
+             for r in range(k-i+1)) for i in range(k+1)]
+    assert all(sum(comb(t, j)*x[a+j] for j in range(t+1))
+               == factorial(a)*factorial(t-a) for a in range(t+1))
+    assert sum(comb(k, i)*x[i] for i in range(k+1)) == N
+    print(t, min(x))
+\end{verbatim}
+
+The Lean 4.19 formalization in \texttt{lean/MainResult.lean} proves the
+existence statement for every positive strength, using the small certificates
+through strength 21 and an integer proof of exact marginals and nonnegativity
+from strength 22 onward. It specifies the count for every partial binary word.
+The asymptotic-width result is proved in the text. This research note and its
+code were produced with OpenAI Codex.
+
+\begin{thebibliography}{9}
+\bibitem{ghw}
+A.~E. Gentle, D. Horsley, and I.~M. Wanless.
+Excess coverage arrays and Levenshtein's conjecture.
+\emph{Designs, Codes and Cryptography} \textbf{93} (2025), 5257--5269.
+\href{https://doi.org/10.1007/s10623-025-01722-9}{doi:10.1007/s10623-025-01722-9}.
+\bibitem{kuriki}
+S. Kuriki. On existence and construction of balanced arrays.
+\emph{Discrete Mathematics} \textbf{116} (1993), 137--155.
+\href{https://doi.org/10.1016/0012-365X(93)90398-D}{doi:10.1016/0012-365X(93)90398-D}.
+\bibitem{shirakura}
+T. Shirakura. Contributions to balanced fractional $2^m$ factorial designs
+derived from balanced arrays of strength $2l$.
+\emph{Hiroshima Mathematical Journal} \textbf{7} (1977), 217--285.
+\href{https://doi.org/10.32917/hmj/1206135961}{doi:10.32917/hmj/1206135961}.
+\end{thebibliography}
+\end{document}

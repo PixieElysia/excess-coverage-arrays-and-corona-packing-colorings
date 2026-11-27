@@ -1,0 +1,152 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=22mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage[hidelinks,pdftitle={Packing colorings of paths and cycles with an edge attached at every vertex}]{hyperref}
+\usepackage{fancyvrb}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\pc}{\chi_{\rho}}
+\newcommand{\Z}{\mathbb Z}
+\title{Packing colorings of paths and cycles with an edge\\attached at every vertex}
+\author{}
+\date{Research note, 26 November 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+For every \(n\ge12\), the packing chromatic number of \(P_n\odot K_2\) is seven.
+For \(C_n\odot K_2\) in the same range, the value is seven except at \(n=13\), where it is eight.
+These values settle both questions posed by Sampathkumar, Sivakaran and Unnikrishnan.
+Two finite calculations supply the lower bounds. Five explicit words, each returning to a common state, give seven-colorings for every required cycle length.
+\end{abstract}
+
+\section{The two questions}
+A packing \(k\)-coloring of a graph assigns to each vertex a color in \(\{1,\ldots,k\}\) so that two distinct vertices of color \(c\) have distance greater than \(c\). Write \(\pc(G)\) for the least such \(k\). In a corona \(G\odot K_2\), attach two adjacent vertices to each vertex of \(G\), joining both to that vertex. Each vertex of \(G\) is thus the center of a triangle with two satellites. In the related \(p\)-corona studied in~\cite{lbs}, the attached vertices are independent.
+The path example is also a chain of triangles, with just one backbone vertex
+per triangle. The clique-chain bounds in \cite{fgo} assume at least two
+backbone vertices per clique.
+
+Sampathkumar, Sivakaran and Unnikrishnan determined the values for paths and cycles through base order eleven. They gave seven as an upper bound for all longer paths, and upper bounds of seven or eight for longer cycles~\cite[Theorems 2.1 and 3.1]{ssu}. On page~107 they conjectured that a path of twelve triangles requires seven colors and asked for the exact values for all cycles of length at least twelve.
+
+\begin{theorem}\label{main}
+For every \(n\ge12\),
+\[
+  \pc(P_n\odot K_2)=7,\qquad
+  \pc(C_n\odot K_2)=
+  \begin{cases}8 & n=13,\\ 7 & n\ne13.\end{cases}
+\]
+\end{theorem}
+There are two finite obstructions, on 36 and 39 vertices. We give a transfer calculation for each, then construct all the upper colorings. The proofs use only integer comparisons, finite sets and explicit words.
+
+\section{Recording what a prefix forbids}
+Number the triangles from left to right. Within each triangle give the center height \(0\) and both satellites height \(1\). Vertices of heights \(h,g\) in columns \(i<j\) on the path have distance \(j-i+h+g\), since every route traverses both centers. The two satellites of a column may be exchanged. We record an entire column as a triple \((v,x,y)\) of distinct colors, with its center first and \(x<y\).
+
+Just before column \(j\), associate to each color \(c\) the threshold
+\begin{equation}\label{state}
+ s_c=\max\bigl(\{-1\}\cup
+    \{c-(j-i)-h: \text{color }c\text{ occurs at height }h\text{ in column }i<j\}\bigr).
+\end{equation}
+Each coordinate lies between \(-1\) and \(c-1\). At the left boundary the vector is \(e=(-1,\ldots,-1)\).
+\begin{lemma}\label{step}
+A triple extends a valid prefix precisely when \(s_v<0\), \(s_x<1\) and \(s_y<1\). The next state is
+\[
+s'_c=\begin{cases}
+ c-1 &c=v,\\
+ c-2 &c\in\{x,y\},\\
+ \max(-1,s_c-1)&\text{otherwise}.
+\end{cases}
+\]
+\end{lemma}
+\begin{proof}
+An old occurrence of \(c\) in column \(i\) forbids a new occurrence at height \(g\) precisely when \(g\le c-(j-i)-h\). Taking the maximum gives the three tests. Every old contribution decreases by one on advancing the column. If \(c\) was just used at height \(g\), admissibility gives \(s_c-1\le g-2\). This is at most the new contribution \(c-1-g\) for \(g\in\{0,1\}\) and \(c\ge1\).
+\end{proof}
+
+Let \(D_k\) be the directed graph of states reachable from \(e\) by the rule in Lemma~\ref{step}. Merge duplicate arcs when counting reachable states. There are at most \(\prod_{c=1}^k(c+1)=(k+1)!\) possible states. Every path coloring reads as a walk from \(e\), and conversely, by induction on the number of columns.
+
+\begin{lemma}\label{cyclic}
+For \(n>k\) and \(n\ge3\), \(C_n\odot K_2\) admits a packing \(k\)-coloring if and only if \(D_k\) has a closed walk of length \(n\).
+\end{lemma}
+\begin{proof}
+Repeat the columns of a cycle coloring periodically along the two-way infinite path. Distinct vertices projecting to distinct cycle vertices have distance on the path at least their distance on the cycle. Copies of the very same vertex in different periods have distance at least \(n>k\). Thus the repeated word is a packing coloring on the infinite path. Formula~\eqref{state} depends only on the last \(k\) columns, since older contributions are at most \(-1\). Reading one full period from \(e\) therefore reaches the threshold vector of the infinite word at the period boundary. Subsequent periods return to it.
+
+In the reverse direction, choose an admissible label on each arc of a closed walk and repeat its labels and states indefinitely. After \(k\) steps all thresholds are determined by the intervening columns, since every inherited threshold has decayed to \(-1\) or been overwritten. The repeated word therefore satisfies the packing inequalities on the infinite path. For two vertices in different cycle columns choose lifts whose column separation is the shorter cyclic separation. The distance between these lifts equals the cycle distance. Distinct vertices in the same column have different colors by construction.
+\end{proof}
+
+\section{The finite obstructions}
+For \(k=6\), put \(F_0=\{e\}\) and \(F_{j+1}=\bigcup_{s\in F_j}N^+(s)\).
+For \(k=7\), let \(R_0(s)=\{s\}\) for every state of \(D_7\), and iterate
+\[
+  R_{j+1}(s)=\bigcup_{t\in N^+(s)}R_j(t),\qquad
+  b_j=|\{s:s\in R_j(s)\}|.
+\]
+Then \(b_j\) counts vertices that start a closed walk of length \(j\). For reproducibility the full finite calculation has the following intermediate counts.
+\begin{center}\small
+\begin{tabular}{@{}lrrrrrrrrrrrrrr@{}}
+\toprule
+\(j\)&0&1&2&3&4&5&6&7&8&9&10&11&12&13\\
+\midrule
+\(|F_j|\)&1&60&226&271&219&151&91&53&32&19&7&2&0&--\\
+\(b_j\)&2999&0&0&0&0&0&24&0&96&0&56&0&74&0\\
+\bottomrule
+\end{tabular}
+\end{center}
+Here \(D_7\) has \(2\,999\) vertices and \(11\,778\) distinct directed arcs. The following pseudocode, together with the update in Lemma~\ref{step}, specifies its enumeration.
+\begin{Verbatim}[fontsize=\small]
+Q := queue containing e; Seen := {e}
+while Q is nonempty:
+    remove the first state s from Q
+    N(s) := empty set
+    for v,x,y in {1,...,k} with x<y and v outside {x,y}:
+        if s[v]<0 and s[x]<1 and s[y]<1:
+            compute t by Lemma 2 and insert t into N(s)
+            if t is new to Seen: insert t into Seen and append t to Q
+\end{Verbatim}
+The empty set \(F_{12}\) rules out six colors on \(P_{12}\odot K_2\). Every graph in Theorem~\ref{main} contains this graph as a subgraph. Deleting edges or vertices can only increase the distance of a surviving pair, so all the required packing numbers are at least seven. The zero value \(b_{13}\), together with Lemma~\ref{cyclic}, rules out seven colors on \(C_{13}\odot K_2\).
+The companion code also checks these obstructions by exhaustive vertex assignment on the two graphs, computing distances by breadth-first search. This independent calculation visits \(10\,221\) and \(162\,103\) search nodes, respectively.
+
+\section{Compatible words for all remaining lengths}
+The following words are written as strings of columns. For instance \(412\) means that the center has color \(4\) and its satellites have colors \(1,2\). A continued line belongs to the same word.
+\begin{Verbatim}[fontsize=\small]
+ 6   123 412 127 312 126 512
+ 8   123 412 123 712 123 612 123 512
+15   123 412 127 312 125 612 123 412 125 312 712 124 612 123 512
+17   123 412 123 712 123 512 123 612 123 412 125 312 712 124
+     612 123 512
+19   123 412 123 712 123 512 123 412 123 612 123 512 123 412
+     712 123 612 123 512
+\end{Verbatim}
+Applying Lemma~\ref{step} to any row from
+\(a=(-1,0,0,-1,4,3,2)\) returns to \(a\). For example, the first column of the six-column word gives
+\((0,0,1,-1,3,2,1)\), and its penultimate state is \((0,0,1,0,-1,4,3)\). The final column \(512\) resets the fifth, first and second coordinates and decrements the rest, recovering \(a\).
+The anchor \(a\) itself is reachable from \(e\). Indeed, \(e\le a\) coordinatewise, so every block can start from \(e\) by monotonicity of the admissibility test and update for fixed labels. After repeating the first row twice, the last seven columns determine the state, giving \(a\) exactly.
+
+These loops can be concatenated in any order. Length \(12\) is \(6+6\). Lengths \(14,\ldots,19\) have representations \(6+8,15,8+8,17,6+6+6,19\). Adding copies of the length-six block covers every \(n\ge14\). Lemma~\ref{cyclic} gives the required cycle colorings. Every finite path is the restriction of a sufficiently long cycle with the same triangle columns, so these same words give a seven-coloring of every path. For \(n=13\), the following eight-color word is the construction of~\cite[p.~107]{ssu}:
+\begin{Verbatim}[fontsize=\small]
+     412 123 512 123 612 123 412 123 512 123 712 123 812
+\end{Verbatim}
+Its only repeated center colors greater than three are \(4\) and \(5\), each at cyclic center distance six. Color \(2\) occurs at a satellite of every triangle. Color \(3\) occurs on odd-indexed satellites, starting the index at zero, at pairwise cyclic column separation at least two. Consecutive centers of color \(1\) do not occur, and a satellite of color \(1\) never shares a column with a center of that color. This completes the proof of Theorem~\ref{main}.
+
+\paragraph{Reproducibility and provenance.}
+The file \texttt{verify.py} implements the state recurrences and checks the printed words. The file \texttt{graph\_search.py} implements the separate vertex assignment search. Both use the Python standard library. This research note and its code were produced with OpenAI Codex. The Lean 4.19 project gives the two exact packing numbers in terms of walks
+along graph edges and proves the explicit shortest-distance formulas above. It checks the finite obstructions with the standard
+\texttt{bv\_decide} tactic, connects these obstructions to the distance
+inequalities, and proves the upper bounds using verified repeated words.
+Run \texttt{lake build} under \texttt{lean/} to reproduce the formal checks.
+This note is a preprint.
+
+\begin{thebibliography}{9}
+\bibitem{lbs} D.~La\"iche, I.~Bouchemakh and \'E.~Sopena,
+Packing coloring of some undirected and oriented coronae graphs,
+\emph{Discuss. Math. Graph Theory} \textbf{37} (2017), 665--690.
+\href{https://doi.org/10.7151/dmgt.1963}{doi:10.7151/dmgt.1963}.
+\bibitem{fgo}
+H.~Furma\'nczyk, D.~G\"oz\"upek and S.~\"Ozkan,
+Packing coloring of graphs with long paths,
+\href{https://arxiv.org/abs/2511.12761}{arXiv:2511.12761} (2025).
+\bibitem{ssu} R.~Sampathkumar, T.~Sivakaran and R.~Unnikrishnan,
+Packing colorings of the corona product of the path \(P_n\) and the cycle \(C_n\) with an edge \(K_2\),
+\emph{TWMS J. Appl. Eng. Math.} \textbf{16} (2026), no.~1, 94--108.
+\href{https://dergipark.org.tr/en/download/article-file/5580259}{Publisher's full text}.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,10 @@
+.lake/
+__pycache__/
+*.py[cod]
+*.olean
+*.ilean
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out

@@ -1,0 +1,7 @@
+name = "packing_corona"
+version = "0.1.0"
+defaultTargets = ["PackingCorona"]
+
+[[lean_lib]]
+name = "PackingCorona"
+roots = ["GraphProof", "CycleMetric", "Bridge", "PackingTools", "CoronaWalk", "Attainment", "Upper", "ExactColors", "EdgeColors"]

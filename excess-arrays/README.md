@@ -8,7 +8,7 @@ For every positive strength $t$, $(t+1)!$ rows suffice for $2t$ binary columns w
 
 ## Files
 
-- [Manuscript PDF](paper.pdf) · [LaTeX](paper.tex) · [Prior art](PRIOR_ART.md)
+- [Manuscript Markdown](paper.md) · [PDF](paper.pdf) · [LaTeX](paper.tex) · [Prior art](PRIOR_ART.md)
 - [Lean existence theorem](lean/MainResult.lean) · [Formal check of equation (3)](lean/ExcessArrays.lean)
 - [Construction](construct.py) · [Independent integer checker](verify.py) · [Strength-18 certificate](t18.json) · [Certificates for strengths 1 through 16](small.json)
 - [Results CSV](results.csv) · [Verification log](verification.log) · [Reproducibility audit](../REPRODUCIBILITY_AUDIT.md)

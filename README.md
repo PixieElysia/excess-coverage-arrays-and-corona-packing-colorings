@@ -13,7 +13,7 @@ This repository contains two combinatorics manuscripts, their Lean 4.19 proofs, 
 
 | | Binary excess coverage arrays | Corona packing colorings |
 | --- | --- | --- |
-| Manuscript | [PDF](excess-arrays/paper.pdf) · [LaTeX](excess-arrays/paper.tex) | [PDF](packing-corona/paper.pdf) · [LaTeX](packing-corona/paper.tex) |
+| Manuscript | [Markdown](excess-arrays/paper.md) · [PDF](excess-arrays/paper.pdf) · [LaTeX](excess-arrays/paper.tex) | [Markdown](packing-corona/paper.md) · [PDF](packing-corona/paper.pdf) · [LaTeX](packing-corona/paper.tex) |
 | Formal statements | [Existence for every strength](excess-arrays/lean/MainResult.lean) · [Equation (3)](excess-arrays/lean/ExcessArrays.lean) | [Exact values from graph edges](packing-corona/lean/EdgeColors.lean) |
 | Computation | [Strength-18 certificate](excess-arrays/t18.json) · [Results CSV](excess-arrays/results.csv) · [Build and check log](excess-arrays/verification.log) | [Transfer-state verifier](packing-corona/verify.py) · [Independent vertex search](packing-corona/graph_search.py) · [Results CSV](packing-corona/results.csv) · [Build and check log](packing-corona/verification.log) |
 | Study notes | [Readme](excess-arrays/README.md) · [Prior art](excess-arrays/PRIOR_ART.md) | [Readme](packing-corona/README.md) · [Prior art](packing-corona/PRIOR_ART.md) |

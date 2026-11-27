@@ -6,7 +6,7 @@ For base order at least twelve, the path corona always requires seven colors. Th
 
 ## Files
 
-- [Manuscript PDF](paper.pdf) · [LaTeX](paper.tex) · [Prior art](PRIOR_ART.md)
+- [Manuscript Markdown](paper.md) · [PDF](paper.pdf) · [LaTeX](paper.tex) · [Prior art](PRIOR_ART.md)
 - [Lean exact values from graph edges](lean/EdgeColors.lean) · [Formal model and trust](lean/README.md)
 - [Transfer enumeration](verify.py) · [Independent vertex search](graph_search.py) · [Results CSV](results.csv)
 - [Verification log](verification.log) · [Reproducibility audit](../REPRODUCIBILITY_AUDIT.md)

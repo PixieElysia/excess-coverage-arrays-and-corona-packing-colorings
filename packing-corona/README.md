@@ -1,8 +1,15 @@
 # Packing colorings of paths and cycles with an edge attached at every vertex
 
+**AI-assisted research preprint · version 0.2.**
+
 For base order at least twelve, the path corona always requires seven colors. The cycle corona requires eight colors at order thirteen and seven at every other order. Each graph has three vertices per base vertex.
 
-[Read the three-page research note](paper.pdf) · [LaTeX source](paper.tex)
+## Files
+
+- [Manuscript PDF](paper.pdf) · [LaTeX](paper.tex) · [Prior art](PRIOR_ART.md)
+- [Lean exact values from graph edges](lean/EdgeColors.lean) · [Formal model and trust](lean/README.md)
+- [Transfer enumeration](verify.py) · [Independent vertex search](graph_search.py) · [Results CSV](results.csv)
+- [Verification log](verification.log) · [Reproducibility audit](../REPRODUCIBILITY_AUDIT.md)
 
 ## Original questions
 
@@ -41,9 +48,10 @@ The second program builds the graph from edges and computes shortest paths by br
 
 The infinite families follow from the length argument in Section 4 of the note. The five loops have lengths 6, 8, 15, 17 and 19. They realize length 12, each of 14 through 19, and every increment by six.
 
-## Rebuild the PDF
+## Build the formalization and PDF
 
 ```sh
+(cd lean && lake build)
 latexmk -pdf -interaction=nonstopmode -halt-on-error paper.tex
 ```
 

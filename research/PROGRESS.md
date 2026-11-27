@@ -16,4 +16,4 @@
 
 路径隔离博弈的路、圈精确值已有[后续论文](https://arxiv.org/search/?query=Bounds+on+the+game+isolation+number+and+exact+values+for+paths+and+cycles&searchtype=title)。[OEIS A264515](https://oeis.org/A264515) 的平方关系可通过把列按奇偶性分块来解释，研究最终聚焦于上面两组有明确期刊出处的问题。
 
-后续接续可从 [README](../README.md) 的复现命令和[文献检索记录](SOURCES.md)开始。两个 Lean 工程只依赖 Lean 4.19.0 的标准库。验证报告见 [VERIFICATION.md](VERIFICATION.md)。
+后续接续可从 [仓库首页](../README.md) 的复现命令和[文献检索记录](SOURCES.md)开始。两个 Lean 工程只依赖 Lean 4.19.0 的标准库。验证报告见 [VERIFICATION.md](VERIFICATION.md)。

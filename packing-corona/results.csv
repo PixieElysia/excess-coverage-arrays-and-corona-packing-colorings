@@ -1,0 +1,5 @@
+base_graph,base_order,vertices,palette,outcome,search_nodes
+path,11,33,6,SAT,34
+path,12,36,6,UNSAT,10221
+cycle,13,39,7,UNSAT,162103
+cycle,13,39,8,SAT,201

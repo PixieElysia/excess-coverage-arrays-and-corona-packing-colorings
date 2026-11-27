@@ -1,0 +1,30 @@
+$ python3 --version
+Python 3.12.14
+$ lean --version
+Lean (version 4.19.0, x86_64-unknown-linux-gnu, commit 6caaee842e94, Release)
+$ ./verify.sh graphs
+Checking packing colorings of corona graphs
+Six-color path frontier, lengths 0–12: 1 60 226 271 219 151 91 53 32 19 7 2 0
+Reachable seven-color transfer graph: 2999 states, 11778 arcs
+Closed-walk starting states, lengths 1–13: 0 0 0 0 0 24 0 96 0 56 0 74 0
+Verified five common-state blocks, their 25 ordered pairs and the 8-color C13 witness.
+path 11 6: SAT search nodes 34
+123 412 123 512 123 612 123 412 123 512 123
+path 12 6: UNSAT search nodes 10221
+cycle 13 7: UNSAT search nodes 162103
+cycle 13 8: SAT search nodes 201
+123 412 123 612 127 312 412 125 812 136 214 137 512
+✔ [2/11] Built CycleMetric
+✔ [3/11] Built CoronaWalk
+✔ [4/11] Built PackingTools
+✔ [5/11] Built GraphProof
+✔ [6/11] Built Attainment
+✔ [7/11] Built Bridge
+✔ [8/11] Built Upper
+ℹ [9/11] Built ExactColors
+info: ././././ExactColors.lean:32:0: 'CoronaUpper.path_exact' depends on axioms: [propext, Classical.choice, Lean.ofReduceBool, Quot.sound]
+info: ././././ExactColors.lean:33:0: 'CoronaUpper.cycle_exact' depends on axioms: [propext, Classical.choice, Lean.ofReduceBool, Quot.sound]
+ℹ [10/11] Built EdgeColors
+info: ././././EdgeColors.lean:53:0: 'CoronaUpper.path_exact_on_edges' depends on axioms: [propext, Classical.choice, Lean.ofReduceBool, Quot.sound]
+info: ././././EdgeColors.lean:54:0: 'CoronaUpper.cycle_exact_on_edges' depends on axioms: [propext, Classical.choice, Lean.ofReduceBool, Quot.sound]
+Build completed successfully.

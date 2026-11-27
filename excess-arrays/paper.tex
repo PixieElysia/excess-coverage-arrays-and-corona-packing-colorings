@@ -1,57 +1,89 @@
 \documentclass[11pt]{article}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern,amsmath,amssymb,amsthm,booktabs,microtype}
-\usepackage[margin=1in]{geometry}
-\usepackage[hidelinks,pdftitle={Binary excess coverage arrays at minimum size}]{hyperref}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue,
+  pdftitle={Minimum-size binary excess coverage arrays},
+  pdfsubject={Exact existence and asymptotic width under column symmetry}
+}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 \newcommand{\cx}{\mathsf{CA}_{X}}
 \newcommand{\Ksym}{K_{\mathrm{sym}}}
 \newcommand{\nint}[1]{\left\lfloor #1\right\rceil}
-\title{Binary excess coverage arrays at minimum size\\
-\large The strength-18 instance and asymptotically sharp symmetric width}
-\author{}
-\date{Research note \quad 26 November 2026}
+\newcommand{\code}[1]{\texttt{#1}}
+\title{Minimum-size binary excess coverage arrays\\
+\large Exact existence and asymptotic width under column symmetry}
+\author{AI-assisted research manuscript\\
+Author attribution pending human review}
+\date{27 November 2026\\
+Version 0.2 \enspace\textbullet\enspace Research preprint}
 \begin{document}
 \maketitle
 \begin{abstract}
-Gentle, Horsley and Wanless reported that the integer system for a
-column-symmetric binary excess coverage array of strength 18 on 36 columns
-has no nonnegative solution. An explicit solution given here has smallest
-coordinate 350847. We construct minimum-size arrays on twice the strength
-for every strength from 18 onward. We also determine the leading asymptotic for
-the maximum width of a column-symmetric minimum-size array. At strength $t$
-the width is $(1+o(1))\log_2((t+1)!)$. The two proofs use rounding in
-different coordinates and require only exact integer arithmetic for the
-finite cases.
+Gentle, Horsley and Wanless (2025, Section~5) reported that a system
+of binomial equations for column-symmetric binary excess coverage arrays
+has no nonnegative integer solution at strength \(18\) and width \(36\).
+We give a strictly positive solution. All \(37\) multiplicities are
+explicit, with minimum \(350\,847\). More generally, every positive
+strength \(t\) admits a column-symmetric array with \(2t\) columns and the
+minimum possible number of rows, \((t+1)!\). The construction rounds
+intersection counts and uses inclusion--exclusion to recover the row
+multiplicities. Exact certificates cover the remaining small strengths.
+For the largest achievable width under column symmetry we prove the
+asymptotic formula \((1+o(1))\log_2((t+1)!)\). Lean~4.19 verifies the
+strength-\(18\) certificate and the existence theorem for all positive
+strengths. The asymptotic formula is proved mathematically in the text.
 \end{abstract}
 
-\section{The parameter in question}
-A binary excess coverage array of strength $t$ and width $k\ge t$ is a
-multiset of binary words of length $k$. On any specified $t$ coordinates,
-each specified pattern with $a$ ones must occur at least $a!(t-a)!$ times.
-Summing over all patterns on those coordinates gives the minimum possible
-row count $N=(t+1)!$ as a lower bound. At that row count, these are
-binary balanced arrays for the index vector $a!(t-a)!$. Column-symmetric
-representations by weight are standard in balanced-array theory
-\cite{kuriki,shirakura}. An array meeting the bound has
-equality for every pattern. We call an array \emph{column-symmetric} if
-permuting its columns preserves its row multiset. A word of weight $i$
-then occurs with a multiplicity $x_i$ depending only on $i$.
+\section{Problem and main results}
+A binary excess coverage array of strength \(t\ge1\) and width \(k\ge t\)
+is a multiset of binary words of length \(k\). In each choice of \(t\)
+coordinates, each prescribed pattern with \(a\) ones must occur at least
+\(a!(t-a)!\) times. Summing these requirements over the patterns in one
+choice of coordinates gives the lower bound
+\[
+  \sum_{a=0}^{t}\binom{t}{a}a!(t-a)! = (t+1)!.
+\]
+An array with \(N=(t+1)!\) rows therefore realizes each requirement
+with equality. This is a binary balanced array with index vector
+\(\mu_a=a!(t-a)!\). We call the array \emph{column-symmetric} when
+permuting its columns preserves the row multiset. The multiplicity
+\(x_i\) is then the number of copies of \emph{each} word of weight \(i\).
+Weight-based representations are standard in balanced-array theory
+\cite{kuriki,shirakura}.
 
-For such an array, the constraints at minimum size are precisely
+The constraints for such an array at minimum size are precisely
 \begin{equation}
  \sum_{j=0}^{k-t}\binom{k-t}{j}x_{a+j}=a!(t-a)!,
  \qquad 0\le a\le t,\qquad x_i\in\mathbb Z_{\ge0}.                 \label{eq:marg}
 \end{equation}
-Indeed, the other $k-t$ positions supply the $j$ additional ones.
-Gentle, Horsley and Wanless \cite[Sec.~5, Eq.~(3)]{ghw} considered
-$k=2t$, found solutions for $t\le17$, and reported infeasibility at
-$t=18$. They explicitly left open the existence of a general
-$\cx(19!;18,36,2)$. Their use of this array is as a necessary condition
-on a sequence covering array. The results below concern the binary array.
+Indeed, the \(k-t\) remaining positions supply the \(j\) additional
+ones. Summing the left sides over the \(2^t\) patterns gives the total
+number of rows. In the width-\(2t\) case this is the system of Gentle,
+Horsley and Wanless \cite[Section~5, equation~(3)]{ghw}. They found
+solutions at strengths through \(17\), reported infeasibility for the
+symmetric system at \(18\), and left existence without the symmetry
+constraint open. The following result settles the instance within
+the symmetric class.
 
-\section{A positive integer solution}
+\begin{theorem}\label{thm:twice}
+For every integer \(t\ge1\), a column-symmetric
+\(\cx((t+1)!;t,2t,2)\) exists. The certificate for \(t=18\) has \(37\)
+positive coordinates and minimum coordinate \(350\,847\).
+\end{theorem}
+
+Let \(\Ksym(t)\) denote the maximum width of a column-symmetric
+array with strength \(t\) and exactly \((t+1)!\) rows, for \(t\ge2\).
+The following theorem includes finiteness of this maximum.
+
+\begin{theorem}\label{thm:width}
+As \(t\to\infty\), \(\Ksym(t)\sim\log_2((t+1)!)\sim t\log_2 t\).
+\end{theorem}
+
+\section{Rounding intersection counts}\label{sec:rounding}
 Write $\nint{z}$ for a nearest integer to $z$, taking the even integer
 at a tie. Define
 \begin{equation}
@@ -59,7 +91,7 @@ at a tie. Define
  x_i=\sum_{r=0}^{k-i}(-1)^r\binom{k-i}{r}y_{i+r}
  \quad(0\le i,j\le k).                                           \label{eq:mob}
 \end{equation}
-\begin{lemma}
+\begin{lemma}\label{lem:rounding}
 The integers in \eqref{eq:mob} satisfy the equalities in
 \eqref{eq:marg}. Each $x_i$ is within $2^{k-i}/2$ of
 $x_i^*=N/((k+1)\binom{k}{i})$.
@@ -82,38 +114,33 @@ gives $x_i^*=N i!(k-i)!/(k+1)!$. Each term rounded in \eqref{eq:mob}
 contributes error at most half its binomial coefficient.
 \end{proof}
 
-\begin{theorem}\label{thm:twice}
-For every $t\ge18$ a column-symmetric $\cx((t+1)!;t,2t,2)$ exists.
-At $t=18$ the solution in \eqref{eq:mob} has all 37 coordinates positive.
-\end{theorem}
-\begin{proof}
-It suffices that $2N\ge(k+1)3^k$, since
-$\binom{k}{i}2^{k-i}\le\sum_{j=0}^k\binom{k}{j}2^{k-j}=3^k$.
-For $k=2t$ the sufficient inequality holds at $t=22$ and persists:
-increasing $t$ by one multiplies the ratio of the two sides by
-$(t+2)(2t+1)/(9(2t+3))>1$ for $t\ge22$. For the four smaller
-strengths, exact evaluation of \eqref{eq:mob} gives
+\begin{proof}[Proof of Theorem~\ref{thm:twice}]
+By Lemma~\ref{lem:rounding}, the condition \(2N\ge(k+1)3^k\) implies
+\(x_i\ge0\) for every \(i\), since
 \[
-\begin{array}{c|rrrr}
- t &18&19&20&21\\ \hline
- \min_i x_i&350847&1792479&9032086&48444386.
-\end{array}
+  \binom{k}{i}2^{k-i}\le\sum_{j=0}^k\binom{k}{j}2^{k-j}=3^k .
 \]
-The appendix gives the finite calculation in full algorithmic form.
+At \(k=2t\), the condition holds at \(t=22\) by integer arithmetic.
+Increasing \(t\) by one multiplies the ratio
+\(2(t+1)!/((2t+1)3^{2t})\) by
+\((t+2)(2t+1)/(9(2t+3))>1\) for \(t\ge22\).
+At \(17\le t\le21\), direct evaluation of \eqref{eq:mob} gives the
+positive minima recorded in Section~\ref{sec:computation}.
+The companion file \code{small.json} supplies the nonnegative integer
+vectors at \(1\le t\le16\). The same section describes verification
+of the margins and row totals in all these cases. Appendix~\ref{sec:certificate}
+lists the full positive solution at \(t=18\).
 \end{proof}
 
-For $1\le t\le16$, the accompanying \texttt{small.json} gives
-independent integer certificates. At $t=17$, \eqref{eq:mob} yields minimum
-multiplicity $77537$. Together with Theorem~\ref{thm:twice} these establish
-existence at every positive strength. The row bound is attained, so
-$\mathsf{CAN}_X(t,2t,2)=(t+1)!$. In the sequence-covering application
-of \cite[Sec.~5]{ghw}, nonexistence of this binary array alone can
-therefore never give the proposed improvement.
+The lower bound on the number of rows is attained, so
+\(\mathsf{CAN}_X(t,2t,2)=(t+1)!\). In the sequence-covering argument of
+\cite[Section~5]{ghw}, absence of this binary array would supply an
+obstruction. Theorem~\ref{thm:twice} removes that particular obstruction
+at every strength.
 
-\section{Maximum width under column symmetry}
-Let $\Ksym(t)$ be the maximum $k$ admitting a column-symmetric array
-with $N=(t+1)!$ rows, for $t\ge2$. We use the convention
-$\binom{n}{r}=0$ when $n\ge0$ and $r\notin\{0,\ldots,n\}$.
+\section{Maximum width under column symmetry}\label{sec:width}
+Throughout this section \(N=(t+1)!\). We use the convention
+\(\binom{n}{r}=0\) when \(n\ge0\) and \(r\notin\{0,\ldots,n\}\).
 
 \begin{lemma}\label{lem:lattice}
 For $d=k-t\ge1$, the equalities in \eqref{eq:marg} have an integer
@@ -140,7 +167,8 @@ $d-1$. Its alternating $d$th difference vanishes. Thus every column of
 $B$ belongs to the kernel. In rows $0,\ldots,d-1$ the entries above
 the diagonal vanish and its diagonal entries are nonzero. The columns
 are consequently a real basis of the kernel consisting of integer vectors.
-Since $x^*$ also satisfies the equations, write $x^*-z=Bv$ and round
+The beta-integral calculation from Lemma~\ref{lem:rounding} shows that
+\(x^*\) also satisfies the equations, so write $x^*-z=Bv$ and round
 the coordinates of $v$. The vector $x=z+B\nint v$ is integral, and the
 error in its $i$th coordinate is at most
 \[
@@ -151,17 +179,15 @@ The smallest coordinate of $x^*$ is
 $N/((k+1)\binom{k}{\lfloor k/2\rfloor})$, giving the last assertion.
 \end{proof}
 
-\begin{theorem}\label{thm:width}
-As $t\to\infty$, $\Ksym(t)\sim\log_2((t+1)!)\sim t\log_2 t$.
-\end{theorem}
-\begin{proof}
+\begin{proof}[Proof of Theorem~\ref{thm:width}]
 For the lower bound take fixed $0<\epsilon<1$ and set
 $k=\lfloor(1-\epsilon)\log_2 N\rfloor$. By Stirling's formula,
-$k=\Theta(t\log t)$. The estimate
-$\binom{k}{t+1}\le(ek/(t+1))^{t+1}$ gives
-$\log\binom{k}{t+1}=O(t\log\log t)=o(\log N)$.
-As $\binom{k}{\lfloor k/2\rfloor}\le 2^k\le N^{1-\epsilon}$,
-Lemma~\ref{lem:lattice} applies for all sufficiently large $t$.
+$k=\Theta(t\log t)$, so $k\ge t+1$ for sufficiently large $t$.
+The estimate $\binom{k}{t+1}\le(ek/(t+1))^{t+1}$ gives
+$\log((k+1)\binom{k}{t+1})=O(t\log\log t)=o(\log N)$.
+Also $\binom{k}{\lfloor k/2\rfloor}\le 2^k\le N^{1-\epsilon}$.
+Their product is at most \(N^{1-\epsilon+o(1)}\), which meets
+the condition in Lemma~\ref{lem:lattice} for sufficiently large \(t\).
 
 For the upper bound select a uniformly random row from any such array
 and write $W$ for its weight. On any $j\le t$ prescribed positions, a
@@ -186,37 +212,141 @@ With $s=\lfloor\sqrt t\rfloor$ for $t\ge4$, the right side tends to
 $1/4$ uniformly in $k\ge t$. Thus $w/k=1/2+o(1)$. The whole layer
 of $\binom{k}{w}$ distinct words occurs, so
 $\log_2 N\ge\log_2\binom{k}{w}=(1-o(1))k$ by Stirling's formula.
-For fixed $t\ge2$ finiteness also follows from $s=1$: some layer has
-$\min(w,k-w)\ge(k-1)/6$, and $\binom{k}{w}\ge 2^{\min(w,k-w)}$.
-Letting $\epsilon$ decrease to zero finishes the proof.
+For fixed \(t\ge2\), the earlier probability identity with \(s=1\)
+gives an occupied weight \(w\) with \(w(k-w)\ge k(k-1)/6\).
+Writing \(m=\min(w,k-w)\) gives \(m\ge(k-1)/6\) and
+\(\binom{k}{w}=\binom{k}{m}\ge\binom{2m}{m}\ge2^m\).
+Thus \(N\ge2^{(k-1)/6}\), proving finiteness.
+Letting \(\epsilon\) decrease to zero finishes the proof.
 \end{proof}
 
-\appendix
-\section{Exact reproduction}
-The following Python code evaluates the four finite cases of
-Theorem~\ref{thm:twice} and checks the marginal equations directly.
-The separate certificate file \texttt{t18.json} contains the 37 integers
-in weight order for checking without a generator.
-\begin{verbatim}
-from fractions import Fraction
-from math import comb, factorial
-for t in range(18, 22):
-    k, N = 2*t, factorial(t+1)
-    y = [round(Fraction(N, j+1)) for j in range(k+1)]
-    x = [sum((-1)**r * comb(k-i, r) * y[i+r]
-             for r in range(k-i+1)) for i in range(k+1)]
-    assert all(sum(comb(t, j)*x[a+j] for j in range(t+1))
-               == factorial(a)*factorial(t-a) for a in range(t+1))
-    assert sum(comb(k, i)*x[i] for i in range(k+1)) == N
-    print(t, min(x))
-\end{verbatim}
+\section{Finite verification and reproducibility}\label{sec:computation}
+The rounding calculation uses only integers. To form \(y_j\), divide
+\(N\) by \(j+1\) with remainder. Round up if twice the remainder exceeds
+\(j+1\). At equality, round to the even of the two neighboring
+integers. The generator \code{construct.py} then forms consecutive
+differences of the list \((y_j)\) to obtain \((x_i)\). The verifier
+\code{verify.py} checks the nonnegativity of the supplied multiplicities,
+evaluates each sum in \eqref{eq:marg} directly, and independently
+checks the row total \(\sum_i\binom{k}{i}x_i\).
 
-The Lean 4.19 formalization in \texttt{lean/MainResult.lean} proves the
-existence statement for every positive strength, using the small certificates
-through strength 21 and an integer proof of exact marginals and nonnegativity
-from strength 22 onward. It specifies the count for every partial binary word.
-The asymptotic-width result is proved in the text. This research note and its
-code were produced with OpenAI Codex.
+\begin{center}
+\begin{tabular}{rrrl}
+\toprule
+Strength \(t\) & Width \(2t\) & \(\min_i x_i\) & Certificate source\\
+\midrule
+\(1\)--\(16\) & \(2\)--\(32\) & \(\ge 0\) & \code{small.json}\\
+17 & 34 & 77\,537 & Rounding construction\\
+18 & 36 & 350\,847 & Rounding construction and \code{t18.json}\\
+19 & 38 & 1\,792\,479 & Rounding construction\\
+20 & 40 & 9\,032\,086 & Rounding construction\\
+21 & 42 & 48\,444\,386 & Rounding construction\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+From the \code{excess-arrays/} directory, reproduce the stored and generated
+strength-\(18\) certificates with the Python standard library.
+\begin{verbatim}
+python3 verify.py small.json t18.json
+python3 construct.py 18 36 > /tmp/excess-t18.json
+python3 verify.py /tmp/excess-t18.json
+\end{verbatim}
+The strength-\(18\) check reports \(19\) validated equations and row total
+\(121\,645\,100\,408\,832\,000\). To regenerate the other rounded cases,
+use \code{construct.py} with the strength as its sole argument. The width
+defaults to twice the strength. The finite output is in \code{results.csv}
+and the build and computation record is in \code{verification.log}.
+The repository also includes a SHA-256 manifest.
+
+\section{Machine-checked proof}\label{sec:lean}
+The Lean model represents an array by a function from binary words to
+natural-number multiplicities. It enumerates the compatible binary
+words for each partial pattern and proves that the enumeration has no
+duplicates. The total mass of all width-\(k\) words is checked separately.
+The existence statement quantifies over each pattern of length \(k\)
+with precisely \(k-t\) unspecified positions.
+
+For the small certificates, iterated Pascal sums compute the margins
+from the literal vectors of weight-indexed multiplicities. From
+strength \(22\) on, the proof rescales the rational counts to integers
+and verifies the error estimate and exact margins through identities
+for consecutive differences. This gives a proof for arbitrary \(t\),
+including strengths outside the finite checks.
+
+\begin{center}
+\begin{tabular}{@{}p{.58\linewidth}p{.37\linewidth}@{}}
+\toprule
+Declaration in namespace \code{Excess} & Mathematical content\\
+\midrule
+\code{equation\_three\_18} & All \(19\) equations of the original system\\
+\code{exists\_binary\_excess\_array\_18} & The concrete width-\(36\) array\\
+\code{exists\_symmetric\_binary\_excess\_array} & Existence for every positive strength at width \(2t\)\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Run \code{lake build} within \code{excess-arrays/lean/} using the pinned
+Lean~4.19.0 toolchain. The build prints an axiom audit in
+\code{MainResult.lean}. Theorem \code{equation\_three\_18} has an empty
+axiom list. The concrete existence theorem uses \code{propext}
+and \code{Quot.sound}, and the general existence theorem also uses
+\code{Classical.choice}. Theorem~\ref{thm:width} and its asymptotic
+estimates are proved in Section~\ref{sec:width}.
+
+\section{Prior work and scope}
+Chee, Colbourn, Horsley and Zhou \cite{chee} relate
+sequence covering arrays to excess coverage arrays. Gentle, Horsley
+and Wanless \cite[Section~5]{ghw} apply that relation to the binary
+system considered here. A binary array addresses the resulting
+necessary condition. The results here address the binary system in
+Section~5. Theorem~1 of \cite{ghw}, which bounds the order of
+minimum-size sequence covering arrays of strength \(7\), concerns a
+different parameter and construction.
+
+Longyear \cite{longyear}, Shirakura \cite{shirakura} and Kuriki
+\cite{kuriki} study general existence criteria and constructions for
+balanced arrays. Our claims concern the particular factorial index
+vector, the exact row count \(N=(t+1)!\), and, in
+Theorem~\ref{thm:width}, column symmetry. The width result gives no
+upper bound on arrays outside that symmetry class.
+
+The repository's literature comparison records the journal and
+preprint versions, searches for corrections, and searches under both
+excess coverage and balanced-array terminology. Those public searches
+identified neither a correction for the strength-\(18\) system nor a
+prior proof of the symmetric width formula. Priority remains subject
+to sources outside the search coverage. This preprint and its
+artifacts were prepared with substantial AI assistance in
+discovery, proof development, formalization, verification and
+writing. Author attribution and independent human review are pending.
+
+\appendix
+\section{The strength-18 certificate}\label{sec:certificate}
+For each weight \(i\), include \(x_i\) copies of every binary word of
+length \(36\) and weight \(i\). The same vector is supplied in
+\code{t18.json}.
+\begin{center}\small
+\begin{tabular}{@{}rr@{\qquad}rr@{\qquad}rr@{}}
+\toprule
+\(i\) & \(x_i\) & \(i\) & \(x_i\) & \(i\) & \(x_i\)\\
+\midrule
+0 & 3287704746234543 & 13 & 1711162 & 26 & 12934239\\
+1 & 91325561677561 & 14 & 717000 & 27 & 34922343\\
+2 & 5218331986327 & 15 & 668613 & 28 & 108647345\\
+3 & 460609882625 & 16 & 408459 & 29 & 393846602\\
+4 & 55728278943 & 17 & 404361 & 30 & 1687914016\\
+5 & 8769561774 & 18 & 350847 & 31 & 8720889081\\
+6 & 1660738944 & 19 & 388109 & 32 & 55813690119\\
+7 & 408707871 & 20 & 447235 & 33 & 460462943481\\
+8 & 100683849 & 21 & 591566 & 34 & 5218580026119\\
+9 & 39109461 & 22 & 865672 & 35 & 91325150457081\\
+10 & 10767879 & 23 & 1422819 & 36 & 3287705416454919\\
+11 & 6580331 & 24 & 2626677 &  & \\
+12 & 2062333 & 25 & 5472117 &  & \\
+\bottomrule
+\end{tabular}
+\end{center}
 
 \begin{thebibliography}{9}
 \bibitem{ghw}
@@ -233,5 +363,14 @@ T. Shirakura. Contributions to balanced fractional $2^m$ factorial designs
 derived from balanced arrays of strength $2l$.
 \emph{Hiroshima Mathematical Journal} \textbf{7} (1977), 217--285.
 \href{https://doi.org/10.32917/hmj/1206135961}{doi:10.32917/hmj/1206135961}.
+\bibitem{chee}
+Y.~M. Chee, C.~J. Colbourn, D. Horsley, and J. Zhou.
+Sequence covering arrays.
+\emph{SIAM Journal on Discrete Mathematics} \textbf{27} (2013), 1844--1861.
+\href{https://doi.org/10.1137/120894099}{doi:10.1137/120894099}.
+\bibitem{longyear}
+J.~Q. Longyear. Arrays of strength \(s\) on two symbols.
+\emph{Journal of Statistical Planning and Inference} \textbf{10} (1984), 227--239.
+\href{https://doi.org/10.1016/0378-3758(84)90075-2}{doi:10.1016/0378-3758(84)90075-2}.
 \end{thebibliography}
 \end{document}

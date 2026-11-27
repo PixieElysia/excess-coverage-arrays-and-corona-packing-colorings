@@ -1,0 +1,41 @@
+$ python3 --version
+Python 3.12.14
+$ lean --version
+Lean (version 4.19.0, x86_64-unknown-linux-gnu, commit 6caaee842e94, Release)
+$ ./verify.sh arrays
+Checking binary excess coverage arrays
+t=1, k=2, equations=2, min=0, rows=2
+t=2, k=4, equations=3, min=0, rows=6
+t=3, k=6, equations=4, min=0, rows=24
+t=4, k=8, equations=5, min=0, rows=120
+t=5, k=10, equations=6, min=0, rows=720
+t=6, k=12, equations=7, min=0, rows=5040
+t=7, k=14, equations=8, min=0, rows=40320
+t=8, k=16, equations=9, min=1, rows=362880
+t=9, k=18, equations=10, min=4, rows=3628800
+t=10, k=20, equations=11, min=10, rows=39916800
+t=11, k=22, equations=12, min=30, rows=479001600
+t=12, k=24, equations=13, min=92, rows=6227020800
+t=13, k=26, equations=14, min=310, rows=87178291200
+t=14, k=28, equations=15, min=1124, rows=1307674368000
+t=15, k=30, equations=16, min=4351, rows=20922789888000
+t=16, k=32, equations=17, min=17932, rows=355687428096000
+t=18, k=36, equations=19, min=350847, rows=121645100408832000
+t=17, k=34, equations=18, min=77537, rows=6402373705728000
+t=18, k=36, equations=19, min=350847, rows=121645100408832000
+t=19, k=38, equations=20, min=1792479, rows=2432902008176640000
+t=20, k=40, equations=21, min=9032086, rows=51090942171709440000
+t=21, k=42, equations=22, min=48444386, rows=1124000727777607680000
+t=22, k=44, equations=23, min=273290864, rows=25852016738884976640000
+✔ [2/10] Built Patterns
+✔ [3/10] Built Inversion
+✔ [4/10] Built Certificate
+✔ [5/10] Built ExcessArrays
+✔ [6/10] Built General
+✔ [7/10] Built Universal
+✔ [8/10] Built Small
+ℹ [9/10] Built MainResult
+info: ././././MainResult.lean:21:0: 'Excess.exists_symmetric_binary_excess_array' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ././././MainResult.lean:22:0: 'Excess.exists_binary_excess_array_18' depends on axioms: [propext, Quot.sound]
+info: ././././MainResult.lean:23:0: 'Excess.equation_three_18' does not depend on any axioms
+Build completed successfully.

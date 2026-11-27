@@ -1,0 +1,18 @@
+cwd: /tmp/research-verification-zjfzqiyx/checkout/packing-corona/lean
+$ lake build
+✔ [2/11] Built CycleMetric
+✔ [3/11] Built CoronaWalk
+✔ [4/11] Built PackingTools
+✔ [5/11] Built Attainment
+✔ [6/11] Built GraphProof
+✔ [7/11] Built Bridge
+✔ [8/11] Built Upper
+ℹ [9/11] Built ExactColors
+info: ././././ExactColors.lean:32:0: 'CoronaUpper.path_exact' depends on axioms: [propext, Classical.choice, Lean.ofReduceBool, Quot.sound]
+info: ././././ExactColors.lean:33:0: 'CoronaUpper.cycle_exact' depends on axioms: [propext, Classical.choice, Lean.ofReduceBool, Quot.sound]
+ℹ [10/11] Built EdgeColors
+info: ././././EdgeColors.lean:53:0: 'CoronaUpper.path_exact_on_edges' depends on axioms: [propext, Classical.choice, Lean.ofReduceBool, Quot.sound]
+info: ././././EdgeColors.lean:54:0: 'CoronaUpper.cycle_exact_on_edges' depends on axioms: [propext, Classical.choice, Lean.ofReduceBool, Quot.sound]
+Build completed successfully.
+
+exit code: 0

@@ -1,0 +1,6 @@
+cwd: /tmp/research-verification-zjfzqiyx/checkout
+$ python3 -B research/collect_results.py --check
+excess-arrays/results.csv verified
+packing-corona/results.csv verified
+
+exit code: 0

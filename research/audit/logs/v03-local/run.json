@@ -1,0 +1,235 @@
+{
+  "revision": "4d8a248f67545acc52bf196da3ef1d49f35cbb75",
+  "started_at": "2026-11-27T17:42:41+08:00",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "python": "3.12.14",
+  "checkout": "/tmp/research-verification-zjfzqiyx/checkout",
+  "checks": [
+    {
+      "name": "environment",
+      "directory": ".",
+      "command": [
+        "bash",
+        "-ec",
+        "uname -sm; cat /etc/os-release; python3 --version; lean --version; lake --version; cadical --version; latexmk --version; xelatex --version; pandoc --version; pdftotext -v"
+      ],
+      "status": "PASS",
+      "log": "environment.log",
+      "exit_code": 0
+    },
+    {
+      "name": "proof-baseline",
+      "directory": ".",
+      "command": [
+        "python3",
+        "-B",
+        "research/audit/proof_baseline.py"
+      ],
+      "status": "PASS",
+      "log": "proof-baseline.log",
+      "exit_code": 0
+    },
+    {
+      "name": "distribution-hashes",
+      "directory": ".",
+      "command": [
+        "sha256sum",
+        "-c",
+        "SHA256SUMS"
+      ],
+      "status": "PASS",
+      "log": "distribution-hashes.log",
+      "exit_code": 0
+    },
+    {
+      "name": "array-certificate",
+      "directory": ".",
+      "command": [
+        "python3",
+        "-B",
+        "research/audit/verify_t18.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "log": "array-certificate.log",
+      "exit_code": 0
+    },
+    {
+      "name": "graph-certificates",
+      "directory": ".",
+      "command": [
+        "python3",
+        "-B",
+        "research/audit/verify_graph_semantics.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "log": "graph-certificates.log",
+      "exit_code": 0
+    },
+    {
+      "name": "written-obstruction-arithmetic",
+      "directory": ".",
+      "command": [
+        "python3",
+        "-B",
+        "research/audit/verify_written_obstructions.py"
+      ],
+      "status": "PASS",
+      "log": "written-obstruction-arithmetic.log",
+      "exit_code": 0
+    },
+    {
+      "name": "negative-controls",
+      "directory": ".",
+      "command": [
+        "python3",
+        "-B",
+        "research/audit/test_negative_controls.py"
+      ],
+      "status": "PASS",
+      "log": "negative-controls.log",
+      "exit_code": 0
+    },
+    {
+      "name": "result-tables",
+      "directory": ".",
+      "command": [
+        "python3",
+        "-B",
+        "research/collect_results.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "log": "result-tables.log",
+      "exit_code": 0
+    },
+    {
+      "name": "lean-excess-arrays",
+      "directory": "excess-arrays/lean",
+      "command": [
+        "lake",
+        "build"
+      ],
+      "status": "PASS",
+      "log": "lean-excess-arrays.log",
+      "exit_code": 0
+    },
+    {
+      "name": "lean-packing-corona",
+      "directory": "packing-corona/lean",
+      "command": [
+        "lake",
+        "build"
+      ],
+      "status": "PASS",
+      "log": "lean-packing-corona.log",
+      "exit_code": 0
+    },
+    {
+      "name": "original-arrays",
+      "directory": ".",
+      "command": [
+        "bash",
+        "verify.sh",
+        "arrays"
+      ],
+      "status": "PASS",
+      "log": "original-arrays.log",
+      "exit_code": 0
+    },
+    {
+      "name": "original-graphs",
+      "directory": ".",
+      "command": [
+        "bash",
+        "verify.sh",
+        "graphs"
+      ],
+      "status": "PASS",
+      "log": "original-graphs.log",
+      "exit_code": 0
+    },
+    {
+      "name": "axiom-audit",
+      "directory": ".",
+      "command": [
+        "python3",
+        "-B",
+        "research/audit/audit_lean.py",
+        "--root",
+        "."
+      ],
+      "status": "PASS",
+      "log": "axiom-audit.log",
+      "exit_code": 0
+    },
+    {
+      "name": "latex-excess-arrays",
+      "directory": ".",
+      "command": [
+        "bash",
+        "research/audit/build_paper.sh",
+        "excess-arrays",
+        "/tmp/bilingual-v03-publication.Kr486b/logs/pdf/excess-arrays/en"
+      ],
+      "status": "PASS",
+      "log": "latex-excess-arrays.log",
+      "exit_code": 0
+    },
+    {
+      "name": "latex-packing-corona",
+      "directory": ".",
+      "command": [
+        "bash",
+        "research/audit/build_paper.sh",
+        "packing-corona",
+        "/tmp/bilingual-v03-publication.Kr486b/logs/pdf/packing-corona/en"
+      ],
+      "status": "PASS",
+      "log": "latex-packing-corona.log",
+      "exit_code": 0
+    },
+    {
+      "name": "latex-zh-excess-arrays",
+      "directory": ".",
+      "command": [
+        "bash",
+        "research/audit/build_chinese_paper.sh",
+        "excess-arrays",
+        "/tmp/bilingual-v03-publication.Kr486b/logs/pdf/excess-arrays/zh"
+      ],
+      "status": "PASS",
+      "log": "latex-zh-excess-arrays.log",
+      "exit_code": 0
+    },
+    {
+      "name": "latex-zh-packing-corona",
+      "directory": ".",
+      "command": [
+        "bash",
+        "research/audit/build_chinese_paper.sh",
+        "packing-corona",
+        "/tmp/bilingual-v03-publication.Kr486b/logs/pdf/packing-corona/zh"
+      ],
+      "status": "PASS",
+      "log": "latex-zh-packing-corona.log",
+      "exit_code": 0
+    },
+    {
+      "name": "manuscript-data-and-renders",
+      "directory": ".",
+      "command": [
+        "python3",
+        "-B",
+        "research/audit/check_manuscripts.py",
+        "--rebuilt",
+        "/tmp/bilingual-v03-publication.Kr486b/logs/pdf"
+      ],
+      "status": "PASS",
+      "log": "manuscript-data-and-renders.log",
+      "exit_code": 0
+    }
+  ],
+  "completed_at": "2026-11-27T17:44:14+08:00"
+}

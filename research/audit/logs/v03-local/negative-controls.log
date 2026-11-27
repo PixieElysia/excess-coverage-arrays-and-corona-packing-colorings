@@ -1,0 +1,13 @@
+cwd: /tmp/research-verification-zjfzqiyx/checkout
+$ python3 -B research/audit/test_negative_controls.py
+Rejected by verify_t18.py: equation 0: residual 1
+Rejected by verify.py: weight 0
+Rejected by verify_t18.py: positive integer
+Rejected by verify.py: nonnegative integer
+Rejected by verify_t18.py: 37 multiplicities
+Rejected by verify.py: nonnegative integer
+Rejected by verify_graph_semantics.py: color 4, distance 1
+Rejected by original check_cycle: color 4 at distance 1, columns 0 and 12
+Accepted alternative valid coloring and different node counts.
+
+exit code: 0

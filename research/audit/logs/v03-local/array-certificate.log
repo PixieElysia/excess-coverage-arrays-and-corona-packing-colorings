@@ -1,0 +1,6 @@
+cwd: /tmp/research-verification-zjfzqiyx/checkout
+$ python3 -B research/audit/verify_t18.py --check
+SHA-256 3a47a3097137861a846d3bc62b72240cc96e6190831a978f4fd5cfd563cd6986  t18.json
+19 residuals zero; 37 positive multiplicities; minimum 350847; row total 121645100408832000
+
+exit code: 0

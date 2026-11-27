@@ -1,0 +1,12 @@
+cwd: /tmp/research-verification-zjfzqiyx/checkout
+$ python3 -B research/audit/check_manuscripts.py --rebuilt /tmp/bilingual-v03-publication.Kr486b/logs/pdf
+excess-arrays/paper.md: GFM, links, math and paper certificate rows checked
+excess-arrays/paper.pdf: PDF title block, page size and extractable text checked
+excess-arrays/paper.zh-CN.md: GFM, links, math and paper certificate rows checked
+excess-arrays/paper.zh-CN.pdf: PDF title block, page size and extractable text checked
+packing-corona/paper.md: GFM, links, math and paper certificate rows checked
+packing-corona/paper.pdf: PDF title block, page size and extractable text checked
+packing-corona/paper.zh-CN.md: GFM, links, math and paper certificate rows checked
+packing-corona/paper.zh-CN.pdf: PDF title block, page size and extractable text checked
+
+exit code: 0

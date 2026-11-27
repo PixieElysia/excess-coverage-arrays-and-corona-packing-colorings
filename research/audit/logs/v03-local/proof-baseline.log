@@ -1,0 +1,6 @@
+cwd: /tmp/research-verification-zjfzqiyx/checkout
+$ python3 -B research/audit/proof_baseline.py
+Baseline 5e788f90d91cf7cd0f8a50bfad6f1db6ffc55db2
+Verified 35 immutable files and 105 frozen manuscript units.
+
+exit code: 0

@@ -1,0 +1,9 @@
+cwd: /tmp/research-verification-zjfzqiyx/checkout
+$ python3 -B research/audit/verify_graph_semantics.py --check
+path 11, 6 colors: SAT; observed search nodes 34
+path 12, 6 colors: UNSAT; observed search nodes 10221
+cycle 13, 7 colors: UNSAT; observed search nodes 162103
+cycle 13, 8 colors: SAT; observed search nodes 201
+BFS checked the SAT assignments, the published eight-color witness and all 25 block pairs.
+
+exit code: 0

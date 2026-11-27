@@ -1,0 +1,27 @@
+cwd: /tmp/research-verification-zjfzqiyx/checkout
+$ python3 -B research/audit/audit_lean.py --root .
+Lean (version 4.19.0, x86_64-unknown-linux-gnu, commit 6caaee842e94, Release)
+excess-arrays: searched 8 project Lean source files for \b(sorry|admit|sorryAx|unsafe|axiom|constant|native_decide|ofReduceBool|implemented_by|extern)\b
+excess-arrays: importing MainResult from /tmp/research-verification-zjfzqiyx/checkout/excess-arrays/lean/.lake/build/lib/lean
+Excess.equation_three_18 (a : Fin 19) :
+  (List.map (fun j => Excess.entry (Excess.pascalRow 18) j * Excess.entry Excess.witness18 (↑a + j))
+        (List.range 19)).sum =
+    Excess.factorial ↑a * Excess.factorial (18 - ↑a)
+'Excess.equation_three_18' does not depend on any axioms
+Excess.exists_binary_excess_array_18 : ∃ m, Excess.ExactBinaryArray m (Excess.factorial 19) 18 36
+'Excess.exists_binary_excess_array_18' depends on axioms: [propext, Quot.sound]
+Excess.exists_symmetric_binary_excess_array (t : Nat) (ht : 1 ≤ t) :
+  ∃ f, Excess.ExactBinaryArray (fun w => f (Excess.wordWeight w)) (Excess.factorial (t + 1)) t (2 * t)
+'Excess.exists_symmetric_binary_excess_array' depends on axioms: [propext, Classical.choice, Quot.sound]
+excess-arrays: matched all 3 axiom sets; no flagged source tokens
+packing-corona: searched 9 project Lean source files for \b(sorry|admit|sorryAx|unsafe|axiom|constant|native_decide|ofReduceBool|implemented_by|extern)\b
+packing-corona: importing EdgeColors from /tmp/research-verification-zjfzqiyx/checkout/packing-corona/lean/.lake/build/lib/lean
+CoronaUpper.path_exact_on_edges {n : Nat} (hn : 12 ≤ n) :
+  CoronaUpper.ExactWalkPacking n 7 fun i j r s l => CoronaUpper.PathWalk n j s i r l
+'CoronaUpper.path_exact_on_edges' depends on axioms: [propext, Classical.choice, Lean.ofReduceBool, Quot.sound]
+CoronaUpper.cycle_exact_on_edges {n : Nat} (hn : 12 ≤ n) :
+  CoronaUpper.ExactWalkPacking n (if n = 13 then 8 else 7) fun i j r s l => CoronaUpper.CycleWalk n j s i r l
+'CoronaUpper.cycle_exact_on_edges' depends on axioms: [propext, Classical.choice, Lean.ofReduceBool, Quot.sound]
+packing-corona: matched all 2 axiom sets; no flagged source tokens
+
+exit code: 0

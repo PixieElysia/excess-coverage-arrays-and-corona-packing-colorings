@@ -1,0 +1,16 @@
+cwd: /tmp/research-verification-zjfzqiyx/checkout/excess-arrays/lean
+$ lake build
+✔ [2/10] Built Patterns
+✔ [3/10] Built Inversion
+✔ [4/10] Built Certificate
+✔ [5/10] Built ExcessArrays
+✔ [6/10] Built General
+✔ [7/10] Built Universal
+✔ [8/10] Built Small
+ℹ [9/10] Built MainResult
+info: ././././MainResult.lean:21:0: 'Excess.exists_symmetric_binary_excess_array' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ././././MainResult.lean:22:0: 'Excess.exists_binary_excess_array_18' depends on axioms: [propext, Quot.sound]
+info: ././././MainResult.lean:23:0: 'Excess.equation_three_18' does not depend on any axioms
+Build completed successfully.
+
+exit code: 0

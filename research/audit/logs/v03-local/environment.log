@@ -1,0 +1,47 @@
+cwd: /tmp/research-verification-zjfzqiyx/checkout
+$ bash -ec 'uname -sm; cat /etc/os-release; python3 --version; lean --version; lake --version; cadical --version; latexmk --version; xelatex --version; pandoc --version; pdftotext -v'
+Linux x86_64
+PRETTY_NAME="Debian GNU/Linux 13 (trixie)"
+NAME="Debian GNU/Linux"
+VERSION_ID="13"
+VERSION="13 (trixie)"
+VERSION_CODENAME=trixie
+DEBIAN_VERSION_FULL=13.7
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
+Python 3.12.14
+Lean (version 4.19.0, x86_64-unknown-linux-gnu, commit 6caaee842e94, Release)
+Lake version 5.0.0-6caaee8 (Lean version 4.19.0)
+2.1.3
+Latexmk, John Collins, 11 Dec. 2024. Version 4.86
+XeTeX 3.141592653-2.6-0.999996 (TeX Live 2025/dev/Debian)
+kpathsea version 6.4.0/dev
+Copyright 2024 SIL International, Jonathan Kew and Khaled Hosny.
+There is NO warranty.  Redistribution of this software is
+covered by the terms of both the XeTeX copyright and
+the Lesser GNU General Public License.
+For more information about these matters, see the file
+named COPYING and the XeTeX source.
+Primary author of XeTeX: Jonathan Kew.
+Compiled with ICU version 76.1; using 76.1
+Compiled with zlib version 1.3.1; using 1.3.1
+Compiled with FreeType2 version 2.13.3; using 2.13.3
+Compiled with Graphite2 version 1.3.14; using 1.3.14
+Compiled with HarfBuzz version 10.2.0; using 10.2.0
+Compiled with libpng version 1.6.47; using 1.6.48
+Compiled with pplib version v2.2
+Compiled with fontconfig version 2.15.0; using 2.15.0
+pandoc 3.1.11.1
+Features: -server +lua
+Scripting engine: Lua 5.4
+User data directory: /home/agent/.local/share/pandoc
+Copyright (C) 2006-2023 John MacFarlane. Web: https://pandoc.org
+This is free software; see the source for copying conditions. There is no
+warranty, not even for merchantability or fitness for a particular purpose.
+pdftotext version 25.03.0
+Copyright 2005-2025 The Poppler Developers - http://poppler.freedesktop.org
+Copyright 1996-2011, 2022 Glyph & Cog, LLC
+
+exit code: 0

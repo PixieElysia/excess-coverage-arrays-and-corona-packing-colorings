@@ -1,0 +1,6 @@
+cwd: /workspace/demo
+$ git worktree add --detach /tmp/research-verification-zjfzqiyx/checkout 4d8a248f67545acc52bf196da3ef1d49f35cbb75
+Preparing worktree (detached HEAD 4d8a248)
+HEAD is now at 4d8a248 Prepare bilingual research revision for GitHub
+
+exit code: 0

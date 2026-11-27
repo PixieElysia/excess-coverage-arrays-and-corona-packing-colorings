@@ -1,0 +1,11 @@
+cwd: /tmp/research-verification-zjfzqiyx/checkout
+$ python3 -B research/audit/verify_written_obstructions.py
+Path: fixed color 1, weights A, bounds [103, 78, 42, 32, 28, 23], sum 306 < total 307
+Path: fixed color 2, weights B, bounds [319, 208, 117, 85, 74, 61], sum 864 < total 866
+Path: fixed color 3, weights B, bounds [319, 231, 94, 85, 74, 61], sum 864 < total 866
+Path: fixed color 4, weights C, bounds [46, 32, 16, 9, 11, 9], sum 123 < total 124
+Path: fixed color 5, weights D, bounds [64, 48, 24, 17, 7, 15], sum 175 < total 176
+Path: fixed color 6, weights D, bounds [64, 48, 24, 17, 17, 5], sum 175 < total 176
+Cycle: bounds [19, 13, 6, 5, 4, 3, 2], sum 52. Equality forces the incompatible color-4 gaps.
+
+exit code: 0
